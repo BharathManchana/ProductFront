@@ -1,12 +1,15 @@
-// DishHistoryPage.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import JSONEditor from "jsoneditor";
+import "jsoneditor/dist/jsoneditor.min.css"; // Import the CSS for JSONEditor
+
 
 const DishHistoryPage = () => {
   const { dishId } = useParams();
   const [dishHistory, setDishHistory] = useState(null);
+  const jsonEditorRefs = useRef([]); // Ref to manage multiple JSON editors
 
   useEffect(() => {
     const fetchDishHistory = async () => {
@@ -23,53 +26,50 @@ const DishHistoryPage = () => {
     fetchDishHistory();
   }, [dishId]);
 
-  // Recursive function to render data in a tree-like view
-  const renderTree = (data) => {
-    if (typeof data !== 'object' || data === null) {
-      return <span>{data}</span>;
-    }
+  useEffect(() => {
+    if (dishHistory) {
+      // Initialize JSONEditor for main dish history
+      if (jsonEditorRefs.current[0] && !jsonEditorRefs.current[0].editor) {
+        const editor = new JSONEditor(jsonEditorRefs.current[0], {
+          mode: "tree", // Set the mode to 'tree' to render as a hierarchical structure
+          search: true, // Enable search functionality
+          navigationBar: true, // Show navigation bar
+          statusBar: true, // Show status bar
+        });
+        editor.set(dishHistory); // Set the JSON data in the editor
+      }
 
-    return (
-      <ul>
-        {Object.keys(data).map((key) => (
-          <li key={key}>
-            <strong>{key}:</strong>
-            {Array.isArray(data[key]) ? (
-              <ul>
-                {data[key].map((item, index) => (
-                  <li key={index}>{renderTree(item)}</li>
-                ))}
-              </ul>
-            ) : (
-              renderTree(data[key])
-            )}
-          </li>
-        ))}
-      </ul>
-    );
-  };
+      // Initialize JSONEditor for ingredient histories
+      dishHistory.ingredientHistories?.forEach((history, index) => {
+        if (jsonEditorRefs.current[index + 1] && !jsonEditorRefs.current[index + 1].editor) {
+          const editor = new JSONEditor(jsonEditorRefs.current[index + 1], {
+            mode: "tree",
+            search: true,
+            navigationBar: true,
+            statusBar: true,
+          });
+          editor.set(history);
+        }
+      });
+    }
+  }, [dishHistory]);
 
   return (
     <div className="dish-history-page">
-      <h3>Dish History</h3>
       {dishHistory ? (
-        <>
-          <p><strong>Name:</strong> {dishHistory.dish.name}</p>
-          <p><strong>Price:</strong> ${dishHistory.dish.price}</p>
-          <p><strong>Ingredients:</strong> {dishHistory.dish.ingredients?.map((ingredientId, index) => (
-            <span key={index}>{ingredientId}</span>
-          ))}</p>
-          <p><strong>Blockchain Transaction:</strong></p>
-          {renderTree(dishHistory.blockchainTransaction)}
+        <div>
+          <h4 style={{ marginTop: "0" }}>Blockchain Transaction</h4>
+          {/* Render the JSONEditor tree view for dish history */}
+          <div ref={(el) => (jsonEditorRefs.current[0] = el)} style={{ height: "400px", marginBottom: "20px" }}></div>
 
           <h4>Ingredient Histories</h4>
           {dishHistory.ingredientHistories?.map((history, index) => (
-            <div key={index}>
+            <div key={index} style={{ marginTop: "20px" }}>
               <h5>Ingredient {index + 1}</h5>
-              {renderTree(history)}
+              <div ref={(el) => (jsonEditorRefs.current[index + 1] = el)} style={{ height: "400px", marginBottom: "20px" }}></div>
             </div>
           ))}
-        </>
+        </div>
       ) : (
         <p>Loading...</p>
       )}
