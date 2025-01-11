@@ -34,7 +34,6 @@ const AdminDashboard = () => {
       .catch(error => console.error('Error fetching blockchain transactions:', error));
 
     // Calculate average freshness and quality scores
-    // (implement your logic to calculate these scores)
     setAverageScores({ freshness: 85, quality: 90 });
 
   }, []);
@@ -56,28 +55,16 @@ const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
       <header>
-        <h1>Food Quality Admin Dashboard</h1>
-        <nav>
-          <ul>
-            <li><a href="#dashboard">Dashboard</a></li>
-            <li><a href="#manage-dishes" onClick={() => setShowManageDishPage(true)}>Manage Dishes</a></li>
-            <li><a href="#manage-ingredients">Manage Ingredients</a></li>
-            <li><a href="#blockchain-records">Blockchain Records</a></li>
-          </ul>
-        </nav>
+        <h1>TraceMy Meal Admin Dashboard</h1>
       </header>
-      <div className="sidebar">
-        <button onClick={() => setShowAddDishForm(true)}>Add Dish</button>
-        <button onClick={() => setShowManageDishPage(true)}>Manage Dishes</button>
-        <button onClick={() => setShowAddIngredientForm(true)}>Add Ingredient</button>
-        <button onClick={() => setShowManageIngredientsPage(true)}>Manage Ingredients</button>
-        <button onClick={() => {  DishHistoryPage(true) }}>Blockchain Transactions</button>
-      </div>
-      <main>
-        {showAddDishForm && <AddDishForm setShowForm={setShowAddDishForm} refreshDishes={refreshDishes} />}
-        {showAddIngredientForm && <AddIngredientForm setShowForm={setShowAddIngredientForm} refreshIngredients={refreshIngredients} />}
-        {showManageDishPage && <ManageDishPage />}
-        {showManageIngredientsPage && <ManageIngredientsPage />}
+      <div className="dashboard-container">
+        <div className="sidebar">
+          <button onClick={() => setShowAddDishForm(true)}>Add Dish</button>
+          <button onClick={() => setShowManageDishPage(true)}>Manage Dishes</button>
+          <button onClick={() => setShowAddIngredientForm(true)}>Add Ingredient</button>
+          <button onClick={() => setShowManageIngredientsPage(true)}>Manage Ingredients</button>
+          <button onClick={() => { DishHistoryPage(true); }}>Blockchain Transactions</button>
+        </div>
         <div className="summary-widgets">
           <div className="widget">
             <h3>Total Dishes</h3>
@@ -88,22 +75,72 @@ const AdminDashboard = () => {
             <p>{ingredients.length}</p>
           </div>
           <div className="widget">
-            <h3>Latest Blockchain Transactions</h3>
-            <ul>
-              {blockchainTransactions.slice(0, 5).map(tx => (
-                <li key={tx.id}>{tx.description}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="widget">
-            <h3>Average Freshness Score</h3>
-            <p>{averageScores.freshness}</p>
-          </div>
-          <div className="widget">
             <h3>Average Quality Score</h3>
             <p>{averageScores.quality}</p>
           </div>
         </div>
+      </div>
+      <main>
+        {showAddDishForm && <AddDishForm setShowForm={setShowAddDishForm} refreshDishes={refreshDishes} />}
+        {showAddIngredientForm && <AddIngredientForm setShowForm={setShowAddIngredientForm} refreshIngredients={refreshIngredients} />}
+        {showManageDishPage && <ManageDishPage />}
+        {showManageIngredientsPage && <ManageIngredientsPage />}
+        
+        <h2>Dishes</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Blockchain ID</th>
+              <th>Quality Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dishes.length > 0 ? (
+              dishes.map((dish) => (
+                <tr key={dish._id}>
+                  <td>{dish.name}</td>
+                  <td>{dish.blockchainId}</td>
+                  <td>{dish.qualityScore}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3">No dishes available</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+
+        <h2>Ingredients</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Blockchain ID</th>
+              <th>Description</th>
+              <th>Origin</th>
+              <th>Expiry Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ingredients.length > 0 ? (
+              ingredients.map((ingredient) => (
+                <tr key={ingredient._id}>
+                  <td>{ingredient.name}</td>
+                  <td>{ingredient.blockchainId}</td>
+                  <td>{ingredient.description}</td>
+                  <td>{ingredient.origin}</td>
+                  <td>{new Date(ingredient.expiryDate).toLocaleDateString()}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5">No ingredients available</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </main>
     </div>
   );
