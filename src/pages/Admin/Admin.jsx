@@ -115,6 +115,7 @@ const AdminDashboard = () => {
               <th>Description</th>
               <th>Origin</th>
               <th>Expiry Date</th>
+              <th>Quality Score</th>
             </tr>
           </thead>
           <tbody>
@@ -126,6 +127,8 @@ const AdminDashboard = () => {
                   <td>{ingredient.description}</td>
                   <td>{ingredient.origin}</td>
                   <td>{new Date(ingredient.expiryDate).toLocaleDateString()}</td>
+                  <td>{ingredient.qualityScore}</td>
+
                 </tr>
               ))
             ) : (
