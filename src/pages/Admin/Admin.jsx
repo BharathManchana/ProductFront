@@ -18,35 +18,29 @@ const AdminDashboard = () => {
   const [showManageIngredientsPage, setShowManageIngredientsPage] = useState(false);
 
   useEffect(() => {
-    // Fetch all dishes
     axios.get('https://food-quality-2s5r.onrender.com/api/dishes')
       .then(response => setDishes(response.data))
       .catch(error => console.error('Error fetching dishes:', error));
 
-    // Fetch all ingredients
     axios.get('https://food-quality-2s5r.onrender.com/api/ingredients')
       .then(response => setIngredients(response.data))
       .catch(error => console.error('Error fetching ingredients:', error));
 
-    // Fetch latest blockchain transactions (example endpoint, adjust as needed)
     axios.get('https://food-quality-2s5r.onrender.com/api/blockchain/transactions')
       .then(response => setBlockchainTransactions(response.data))
       .catch(error => console.error('Error fetching blockchain transactions:', error));
 
-    // Calculate average freshness and quality scores
     setAverageScores({ freshness: 85, quality: 90 });
 
   }, []);
 
   const refreshIngredients = () => {
-    // Fetch all ingredients again to refresh the list
     axios.get('https://food-quality-2s5r.onrender.com/api/ingredients')
       .then(response => setIngredients(response.data))
       .catch(error => console.error('Error fetching ingredients:', error));
   };
 
   const refreshDishes = () => {
-    // Fetch all dishes again to refresh the list
     axios.get('https://food-quality-2s5r.onrender.com/api/dishes')
       .then(response => setDishes(response.data))
       .catch(error => console.error('Error fetching dishes:', error));

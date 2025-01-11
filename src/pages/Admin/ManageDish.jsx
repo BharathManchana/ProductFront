@@ -7,10 +7,12 @@ const ManageDishPage = () => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [updatedName, setUpdatedName] = useState('');
   const [updatedPrice, setUpdatedPrice] = useState('');
-  const [updatedIngredients, setUpdatedIngredients] = useState('');
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
     fetchDishes();
+    fetchIngredients();
   }, []);
 
   const fetchDishes = async () => {
@@ -20,6 +22,21 @@ const ManageDishPage = () => {
     } catch (error) {
       console.error('Error fetching dishes:', error);
     }
+  };
+
+  const fetchIngredients = async () => {
+    try {
+      const response = await axios.get('https://food-quality-2s5r.onrender.com/api/ingredients');
+      setIngredients(response.data);
+    } catch (error) {
+      console.error('Error fetching ingredients:', error);
+    }
+  };
+
+  const handleIngredientChange = (ingredientId) => {
+    setSelectedIngredients(prev => 
+      prev.includes(ingredientId) ? prev.filter(id => id !== ingredientId) : [...prev, ingredientId]
+    );
   };
 
   const deleteDish = async (blockchainId) => {
@@ -35,18 +52,11 @@ const ManageDishPage = () => {
 
   const updateDish = async (e) => {
     e.preventDefault();
-    const data = {};
-
-    // Only include fields that are provided
-    if (updatedName) data.name = updatedName;
-    if (updatedPrice) data.price = parseFloat(updatedPrice);
-    if (updatedIngredients) {
-      data.ingredientBlockchainIds = updatedIngredients
-        .split(',')
-        .map(id => id.trim());
-    }
-
-    console.log('Updating dish with data:', data); // Debug logging
+    const data = {
+      name: updatedName,
+      price: parseFloat(updatedPrice),
+      ingredientBlockchainIds: selectedIngredients
+    };
 
     try {
       await axios.put(`https://food-quality-2s5r.onrender.com/api/dishes/update/${selectedDish.blockchainId}`, data);
@@ -59,22 +69,11 @@ const ManageDishPage = () => {
     }
   };
 
-  const viewDishHistory = async (blockchainId) => {
-    try {
-      const response = await axios.get(`https://food-quality-2s5r.onrender.com/api/dishes/dishHistory/${blockchainId}`);
-      console.log('Dish History:', response.data);
-      alert('Dish history fetched successfully! Check the console for details.');
-    } catch (error) {
-      console.error('Error fetching dish history:', error);
-      alert('Failed to fetch dish history.');
-    }
-  };
-
   const handleUpdateClick = (dish) => {
     setSelectedDish(dish);
     setUpdatedName(dish.name);
     setUpdatedPrice(dish.price);
-    setUpdatedIngredients(dish.ingredients.map(ingredient => ingredient.blockchainId).join(','));
+    setSelectedIngredients(dish.ingredients.map(ingredient => ingredient.blockchainId));
     setShowUpdateForm(true);
   };
 
@@ -93,24 +92,32 @@ const ManageDishPage = () => {
             <input type="number" value={updatedPrice} onChange={(e) => setUpdatedPrice(e.target.value)} />
           </div>
           <div>
-            <label>Ingredient Blockchain IDs (comma-separated):</label>
-            <input type="text" value={updatedIngredients} onChange={(e) => setUpdatedIngredients(e.target.value)} />
+            <label>Ingredients:</label>
+            {ingredients.map(ingredient => (
+              <div key={ingredient.blockchainId}>
+                <input
+                  type="checkbox"
+                  id={ingredient.blockchainId}
+                  value={ingredient.blockchainId}
+                  checked={selectedIngredients.includes(ingredient.blockchainId)}
+                  onChange={() => handleIngredientChange(ingredient.blockchainId)}
+                />
+                <label htmlFor={ingredient.blockchainId}>{ingredient.name}</label>
+              </div>
+            ))}
           </div>
           <button type="submit">Update Dish</button>
           <button type="button" onClick={() => setShowUpdateForm(false)}>Cancel</button>
         </form>
       ) : (
         <div>
-          <ul>
-            {dishes.map(dish => (
-              <li key={dish.blockchainId}>
-                <span>{dish.name} - ${dish.price}</span>
-                <button onClick={() => handleUpdateClick(dish)}>Update</button>
-                <button onClick={() => deleteDish(dish.blockchainId)}>Delete</button>
-                <button onClick={() => viewDishHistory(dish.blockchainId)}>View History</button>
-              </li>
-            ))}
-          </ul>
+          {dishes.map(dish => (
+            <div key={dish.blockchainId}>
+              <h3>{dish.name}</h3>
+              <button onClick={() => handleUpdateClick(dish)}>Update</button>
+              <button onClick={() => deleteDish(dish.blockchainId)}>Delete</button>
+            </div>
+          ))}
         </div>
       )}
     </div>

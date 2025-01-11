@@ -26,7 +26,6 @@ const ManageIngredientsPage = () => {
 
   const deleteIngredient = async (blockchainId) => {
     try {
-      // Use blockchain ID for deletion
       await axios.delete(`https://food-quality-2s5r.onrender.com/api/ingredients/delete/${blockchainId}`);
       alert('Ingredient deleted successfully!');
       fetchIngredients();
@@ -39,7 +38,6 @@ const ManageIngredientsPage = () => {
   const updateIngredient = async (e) => {
     e.preventDefault();
 
-    // Build the data object only with fields that are filled
     const data = {};
     if (updatedName) data.name = updatedName;
     if (updatedDescription) data.description = updatedDescription;
@@ -48,7 +46,6 @@ const ManageIngredientsPage = () => {
     if (updatedQuantity) data.quantity = parseInt(updatedQuantity, 10);
 
     try {
-      // Use blockchain ID to update
       await axios.put(`https://food-quality-2s5r.onrender.com/api/ingredients/update/${selectedIngredient.blockchainId}`, data);
       alert('Ingredient updated successfully!');
       setShowUpdateForm(false);
@@ -61,7 +58,6 @@ const ManageIngredientsPage = () => {
 
   const viewIngredientTransaction = async (blockchainId) => {
     try {
-      // Use blockchain ID to fetch the transaction data
       const response = await axios.get(`https://food-quality-2s5r.onrender.com/api/ingredients/getIngredientDetails/${blockchainId}`);
       console.log('Ingredient Transaction:', response.data);
       alert('Ingredient transaction fetched successfully! Check the console for details.');
