@@ -11,7 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import Blockchain from "./pages/ViewBlockchain/block";
-import DishHistoryPage from "./pages/DishHistoryPage/DishHistoryPage"; // Import DishHistoryPage
+import DishHistoryPage from "./pages/DishHistoryPage/DishHistoryPage";
+import AdminDashboard from "./pages/Admin/admin";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/myorders" element={<MyOrders />} />
           <Route path="/blockchain-history" element={<Blockchain />} />
           <Route path="/dish-history/:dishId" element={<DishHistoryPage />} />
+          <Route path="/Admin" element={<AdminDashboard />} />
         </Routes>
       </div>
       <Footer />
