@@ -7,20 +7,19 @@ const Blockchain = () => {
   const [transactions, setTransactions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch blockchain records when the component is mounted
     const fetchTransactions = async () => {
       try {
-        setLoading(true); // Start loading
+        setLoading(true);
         const response = await axios.get('https://food-quality-2s5r.onrender.com/api/transaction/blockchain');
         console.log('API Response:', response.data);
         setTransactions(response.data.blockchainData);
       } catch (error) {
         console.error('Error fetching transactions:', error);
       } finally {
-        setLoading(false); // Stop loading when data is fetched or error occurs
+        setLoading(false);
       }
     };
 
@@ -41,17 +40,15 @@ const Blockchain = () => {
     <div className="blockchain-container">
       <h2>Blockchain Records</h2>
 
-      {/* Loading message and bike animation */}
       {loading && (
         <div className="loading-message">
           <p>Hold on! The database is in another continent. Please wait while we fetch the data...</p>
           <div className="bike-animation">
-            <img src="assets/bike.png" alt="Loading bike" className="bike" />
+            <img src="./src/assets/bike.png" alt="Loading bike" className="bike" />
           </div>
         </div>
       )}
 
-      {/* Transaction List Table */}
       {!loading && transactions.length > 0 && (
         <table className="transaction-table">
           <thead>
@@ -83,7 +80,6 @@ const Blockchain = () => {
         </table>
       )}
 
-      {/* Transaction Details Modal */}
       {selectedTransaction && (
         <Modal
           isOpen={isModalOpen}

@@ -10,7 +10,6 @@ const StoreContextProvider = (props) => {
   const [token, setToken] = useState("");
   const url = "https://food-delivery-backend-5b6g.onrender.com"; 
 
-  // Add item to cart
   const addToCart = async (itemId) => {
     if (!cartItems[itemId]) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
@@ -32,7 +31,6 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  // Remove item from cart
   const removeFromCart = async (itemId) => {
     if (cartItems[itemId] > 1) {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
@@ -56,7 +54,6 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  // Get the total cart amount
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     for (const item in cartItems) {
@@ -68,21 +65,19 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
 
-  // Fetch food list from the new API
   const fetchFoodList = async () => {
     try {
       const response = await axios.get("https://food-quality-2s5r.onrender.com/api/dishes");
-      // console.log("Response data in StoreContext is ", response);
       if (response.data) {
         const fetchedDishes = response.data.map((dish) => ({
           _id: dish._id,
-          blockchainId: dish.blockchainId, // Store blockchainId as well
+          blockchainId: dish.blockchainId,
           name: dish.name,
           price: dish.price,
           description: dish.ingredients.map((ingredient) => ingredient.name).join(", "),
-          image: dish.blockchainId, // You can update this to reflect the actual image path
+          image: dish.blockchainId,
           qualityScore: dish.qualityScore,
-          freshnessScore: dish.ingredients[0].freshnessScore, // Assuming freshness score is from the first ingredient
+          freshnessScore: dish.ingredients[0].freshnessScore,
         }));
         setFoodList(fetchedDishes);
       } else {
@@ -93,7 +88,6 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  // Load cart data
   const loadCardData = async (token) => {
     const response = await axios.post(
       url + "/api/cart/get",
@@ -105,7 +99,7 @@ const StoreContextProvider = (props) => {
 
   useEffect(() => {
     async function loadData() {
-      await fetchFoodList(); // Fetch dishes from the external API
+      await fetchFoodList();
       if (localStorage.getItem("token")) {
         setToken(localStorage.getItem("token"));
         await loadCardData(localStorage.getItem("token"));

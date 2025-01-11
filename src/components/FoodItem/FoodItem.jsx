@@ -10,15 +10,12 @@ const FoodItem = ({
   price,
   image,
   qualityScore,
-  freshnessScore,
   onClickQualityScore,
-  onClickFreshnessScore,
 }) => {
   const { cartItems, addToCart, removeFromCart, url } = useContext(StoreContext);
 
   return (
     <div className="food-item">
-      {/* Image and Cart Controls */}
       <div className="food-item-img-container">
         <img src={image} alt={name} className="food-item-image" />
         {!cartItems[id] ? (
@@ -45,30 +42,20 @@ const FoodItem = ({
         )}
       </div>
 
-      {/* Food Information */}
       <div className="food-item-info">
         <div className="food-item-name-rating">
           <p>{name}</p>
           <img src={assets.rating_stars} alt="Rating Stars" />
         </div>
-        <p className="food-item-desc">{description}</p>
         <p className="food-item-price">${price}</p>
 
-        {/* Scores Section */}
         <div className="food-item-scores">
           <span
-            className="score"
-            onClick={onClickQualityScore} // Trigger API when clicked
-            style={{ cursor: "pointer", marginRight: "10px" }}
+            className="score unlock-info"
+            onClick={onClickQualityScore}
           >
-            Quality: {qualityScore}/10
-          </span>
-          <span
-            className="score"
-            onClick={onClickFreshnessScore} // Trigger API when clicked
-            style={{ cursor: "pointer" }}
-          >
-            Freshness: {freshnessScore}/10
+            Quality: {qualityScore}/10{" "}
+            <span className="unlock-text">(Unlock more info)</span>
           </span>
         </div>
       </div>

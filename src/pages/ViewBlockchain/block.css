@@ -1,10 +1,8 @@
-/* Container for the blockchain section */
 .blockchain-container {
   margin-top: 100px;
   padding: 20px;
 }
 
-/* Title row for the transaction list */
 .transaction-title {
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.5fr;
@@ -13,7 +11,6 @@
   font-size: max(1vw, 12px);
 }
 
-/* Individual transaction item styling */
 .transaction-item {
   margin: 10px 0px;
   color: black;
@@ -29,12 +26,10 @@
   border: none;
 }
 
-/* Close button for each transaction item */
 .transaction-item .cross {
   cursor: pointer;
 }
 
-/* Bottom section of the blockchain, where total and promocode are displayed */
 .blockchain-bottom {
   margin-top: 80px;
   display: flex;
@@ -42,7 +37,6 @@
   gap: max(12vw, 20px);
 }
 
-/* Transaction total details styling */
 .transaction-total {
   flex: 1;
   display: flex;
@@ -103,7 +97,6 @@
   border-radius: 4px;
 }
 
-/* Table styling for the transaction list */
 .transaction-table th,
 .transaction-table td {
   padding: 10px;
@@ -115,7 +108,6 @@
   background-color: #f4f4f4;
 }
 
-/* Button styling */
 button {
   padding: 5px 10px;
   background-color: #007BFF;
@@ -128,7 +120,6 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Modal styling for transaction details */
 .modal-content {
   padding: 20px;
   background-color: #fff;
@@ -145,7 +136,6 @@ button:hover {
   margin-bottom: 10px;
 }
 
-/* Media queries for responsiveness */
 @media (max-width: 750px) {
   .blockchain-bottom {
     flex-direction: column-reverse;
@@ -158,27 +148,23 @@ button:hover {
   }
 }
 
-/* Loading state styling */
 .loading-message {
   font-size: 18px;
   color: #555;
   text-align: center;
   margin: 20px 0;
   position: relative;
-  animation: popIn 1s ease-out; /* Pop-in animation for the loading message */
+  animation: popIn 1s ease-out;
 }
 
-/* Running text effect for the loading message */
 .loading-message p {
   display: inline-block;
   position: relative;
-  animation: slideIn 5s linear infinite; /* Running slide-in animation */
+  animation: textMove 5s linear infinite;
   white-space: nowrap;
-  padding-right: 100%;
   font-weight: bold;
 }
 
-/* Pop-up effect when loading message appears */
 @keyframes popIn {
   0% {
     opacity: 0;
@@ -190,21 +176,19 @@ button:hover {
   }
 }
 
-/* Slide-in effect for the text */
-@keyframes slideIn {
+@keyframes textMove {
   0% {
-    left: 100%;
+    left: -100%;
   }
   100% {
-    left: -100%;
+    left: 100%;
   }
 }
 
-/* Bike animation styling */
 .bike-animation {
   position: absolute;
   bottom: 30px;
-  left: 10%;
+  right: 10%;
   animation: bikeMove 5s linear infinite;
 }
 
@@ -213,15 +197,11 @@ button:hover {
   height: auto;
 }
 
-/* Bike move animation */
 @keyframes bikeMove {
   0% {
-    left: -100px;
-  }
-  50% {
-    left: 50%;
+    right: -100px;
   }
   100% {
-    left: 100%;
+    right: 100%;
   }
 }

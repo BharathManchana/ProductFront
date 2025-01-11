@@ -1,47 +1,46 @@
 .dish-history-page {
-    font-family: Arial, sans-serif;
-    padding: 20px; /* Padding for overall page */
-  }
-  
-  h4 {
-    margin-top: 0; /* Remove top margin for the first h4 */
-    margin-bottom: 10px;
-  }
-  
-  h5 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .jsoneditor-container {
-    margin-top: 20px; /* Adjusted margin to control space between JSON Editor and other content */
-    margin-bottom: 20px; /* Adjusted margin to reduce space after each JSON editor */
-  }
-  
-  div {
-    margin-left: 10px;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding-left: 20px;
-  }
-  
-  strong {
-    cursor: pointer;
-    color: #007BFF;
-    text-decoration: underline;
-  }
-  
-  strong:hover {
-    color: #0056b3;
-  }
-  
-  h3 {
-    margin-bottom: 20px;
-  }
-  
-  .dish-info {
-    margin-bottom: 20px; /* Ensure a reduced gap between text content and JSON Editor */
-  }
-  
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+h5 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.jsoneditor-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+div {
+  margin-left: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+strong {
+  cursor: pointer;
+  color: #007BFF;
+  text-decoration: underline;
+}
+
+strong:hover {
+  color: #0056b3;
+}
+
+h3 {
+  margin-bottom: 20px;
+}
+
+.dish-info {
+  margin-bottom: 20px;
+}
