@@ -75,41 +75,41 @@ table {
   margin: 1rem 0;
   font-size: 1rem;
   text-align: left;
-  table-layout: fixed; /* Ensures columns have equal width */
+  table-layout: fixed;
 }
 
 th, td {
   padding: 0.75rem;
   border: 1px solid #ddd;
-  word-wrap: break-word; /* Handles long text gracefully */
+  word-wrap: break-word;
 }
 
 thead th {
-  background-color: rgb(255, 99, 71); /* Tomato color for headers */
+  background-color: rgb(255, 99, 71);
   color: white;
   font-weight: bold;
   text-transform: uppercase;
 }
 
 tbody tr:nth-child(odd) {
-  background-color: #f9f9f9; /* Light gray for odd rows */
+  background-color: #f9f9f9;
 }
 
 tbody tr:nth-child(even) {
-  background-color: #ffffff; /* White for even rows */
+  background-color: #ffffff;
 }
 
 tbody tr:hover {
-  background-color: rgba(255, 99, 71, 0.2); /* Light tomato hover effect */
+  background-color: rgba(255, 99, 71, 0.2);
 }
 
 td {
   color: #333;
-  text-align: center; /* Center align the data */
+  text-align: center;
 }
 
 th {
-  text-align: center; /* Center align headers */
+  text-align: center;
 }
 
 .no-data {
@@ -118,7 +118,6 @@ th {
   color: #999;
 }
 
-/* Responsive Design for Mobile */
 @media (max-width: 768px) {
   table {
     font-size: 0.9rem;
@@ -128,7 +127,6 @@ th {
     padding: 0.5rem;
   }
 }
-
 
 th {
   cursor: pointer;

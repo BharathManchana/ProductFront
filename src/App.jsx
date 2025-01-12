@@ -12,7 +12,7 @@ import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import Blockchain from "./pages/ViewBlockchain/block";
 import DishHistoryPage from "./pages/DishHistoryPage/DishHistoryPage";
-import AdminDashboard from "./pages/Admin/admin";
+import AdminDashboard from "./pages/Admin/Admin";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);

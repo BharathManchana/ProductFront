@@ -18,17 +18,16 @@ const AdminDashboard = () => {
   const [showManageIngredientsPage, setShowManageIngredientsPage] = useState(false);
 
   useEffect(() => {
-    // Fetch dishes and ingredients and reverse them to display from newest to oldest
     axios.get('https://food-quality-2s5r.onrender.com/api/dishes')
       .then(response => {
-        const reversedDishes = response.data.reverse(); // Reverse the dishes data before setting it
+        const reversedDishes = response.data.reverse();
         setDishes(reversedDishes);
       })
       .catch(error => console.error('Error fetching dishes:', error));
 
     axios.get('https://food-quality-2s5r.onrender.com/api/ingredients')
       .then(response => {
-        const reversedIngredients = response.data.reverse(); // Reverse the ingredients data before setting it
+        const reversedIngredients = response.data.reverse();
         setIngredients(reversedIngredients);
       })
       .catch(error => console.error('Error fetching ingredients:', error));
@@ -113,7 +112,7 @@ const AdminDashboard = () => {
             {dishes.length > 0 ? (
               dishes.map((dish, index) => (
                 <tr key={dish._id}>
-                  <td>{index + 1}</td> {/* Display Serial Number */}
+                  <td>{index + 1}</td>
                   <td>{dish.name}</td>
                   <td>{dish.blockchainId}</td>
                   <td>{dish.qualityScore}</td>
@@ -144,7 +143,7 @@ const AdminDashboard = () => {
             {ingredients.length > 0 ? (
               ingredients.map((ingredient, index) => (
                 <tr key={ingredient._id}>
-                  <td>{index + 1}</td> {/* Display Serial Number */}
+                  <td>{index + 1}</td>
                   <td>{ingredient.name}</td>
                   <td>{ingredient.blockchainId}</td>
                   <td>{ingredient.description}</td>

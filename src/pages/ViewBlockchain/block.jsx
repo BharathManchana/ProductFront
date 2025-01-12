@@ -65,21 +65,21 @@ const Blockchain = () => {
   return (
     <div className="blockchain-container">
       <h2>Blockchain Records</h2>
-
+  
       {loading && (
         <div className="loading-message">
-          <p>Hold on! The database is in another continent. Please wait while we fetch the data...</p>
           <div className="bike-animation">
             <img src="./src/assets/bike.png" alt="Loading bike" className="bike" />
           </div>
+          <p>Hold on! The database is in another continent. Please wait while we fetch the data...</p>
         </div>
       )}
-
+  
       {!loading && transactions.length > 0 && (
         <table className="transaction-table">
           <thead>
             <tr>
-              <th>Sno</th> {/* Sno Column Added */}
+              <th>Sno</th>
               <th onClick={() => handleSort('timestamp')}>Timestamp {getSortArrow('timestamp')}</th>
               <th onClick={() => handleSort('action')}>Action {getSortArrow('action')}</th>
               <th onClick={() => handleSort('name')}>Name {getSortArrow('name')}</th>
@@ -91,7 +91,7 @@ const Blockchain = () => {
           <tbody>
             {transactions.map((transaction, index) => (
               <tr key={transaction.blockchainId}>
-                <td>{index + 1}</td> {/* Serial Number */}
+                <td>{index + 1}</td>
                 <td>{new Date(transaction.timestamp).toLocaleString()}</td>
                 <td>{transaction.action || 'N/A'}</td>
                 <td>{transaction.name}</td>
@@ -107,7 +107,7 @@ const Blockchain = () => {
           </tbody>
         </table>
       )}
-
+  
       {isModalOpen && selectedTransaction && (
         <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
           <h2>Transaction Details</h2>
