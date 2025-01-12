@@ -8,6 +8,7 @@ const Blockchain = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -25,6 +26,31 @@ const Blockchain = () => {
 
     fetchTransactions();
   }, []);
+
+  const sortData = (data, key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+
+    const sortedData = [...data].sort((a, b) => {
+      if (a[key] < b[key]) return direction === 'ascending' ? -1 : 1;
+      if (a[key] > b[key]) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
+
+    setSortConfig({ key, direction });
+    return sortedData;
+  };
+
+  const handleSort = (key) => {
+    setTransactions(sortData(transactions, key));
+  };
+
+  const getSortArrow = (key) => {
+    if (sortConfig.key !== key) return '';
+    return sortConfig.direction === 'ascending' ? ' ↑' : ' ↓';
+  };
 
   const openTransactionDetails = (transaction) => {
     setSelectedTransaction(transaction);
@@ -53,17 +79,19 @@ const Blockchain = () => {
         <table className="transaction-table">
           <thead>
             <tr>
-              <th>Timestamp</th>
-              <th>Action</th>
-              <th>Name</th>
-              <th>Blockchain ID</th>
-              <th>Updated Fields</th>
+              <th>Sno</th> {/* Sno Column Added */}
+              <th onClick={() => handleSort('timestamp')}>Timestamp {getSortArrow('timestamp')}</th>
+              <th onClick={() => handleSort('action')}>Action {getSortArrow('action')}</th>
+              <th onClick={() => handleSort('name')}>Name {getSortArrow('name')}</th>
+              <th onClick={() => handleSort('blockchainId')}>Blockchain ID {getSortArrow('blockchainId')}</th>
+              <th onClick={() => handleSort('updatedFields')}>Updated Fields {getSortArrow('updatedFields')}</th>
               <th>Details</th>
             </tr>
           </thead>
           <tbody>
-            {transactions.map((transaction) => (
+            {transactions.map((transaction, index) => (
               <tr key={transaction.blockchainId}>
+                <td>{index + 1}</td> {/* Serial Number */}
                 <td>{new Date(transaction.timestamp).toLocaleString()}</td>
                 <td>{transaction.action || 'N/A'}</td>
                 <td>{transaction.name}</td>
@@ -80,44 +108,10 @@ const Blockchain = () => {
         </table>
       )}
 
-      {selectedTransaction && (
-        <Modal
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          contentLabel="Transaction Details"
-          className="modal-content"
-        >
-          <h3>Transaction Details</h3>
-          <div>
-            <strong>Timestamp:</strong> {new Date(selectedTransaction.timestamp).toLocaleString()}
-          </div>
-          <div>
-            <strong>Action:</strong> {selectedTransaction.action || 'N/A'}
-          </div>
-          <div>
-            <strong>Name:</strong> {selectedTransaction.name}
-          </div>
-          <div>
-            <strong>Blockchain ID:</strong> {selectedTransaction.blockchainId}
-          </div>
-          <div>
-            <strong>Updated Fields:</strong> {selectedTransaction.updatedFields.length > 0 ? selectedTransaction.updatedFields.join(', ') : 'N/A'}
-          </div>
-          <div>
-            <strong>Description:</strong> {selectedTransaction.description || 'N/A'}
-          </div>
-          <div>
-            <strong>Origin:</strong> {selectedTransaction.origin || 'N/A'}
-          </div>
-          <div>
-            <strong>Expiry Date:</strong> {selectedTransaction.expiryDate ? new Date(selectedTransaction.expiryDate).toLocaleString() : 'N/A'}
-          </div>
-          <div>
-            <strong>Quantity:</strong> {selectedTransaction.quantity}
-          </div>
-          <div>
-            <strong>Quality Score:</strong> {selectedTransaction.qualityScore}
-          </div>
+      {isModalOpen && selectedTransaction && (
+        <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
+          <h2>Transaction Details</h2>
+          <pre>{JSON.stringify(selectedTransaction, null, 2)}</pre>
           <button onClick={closeModal}>Close</button>
         </Modal>
       )}

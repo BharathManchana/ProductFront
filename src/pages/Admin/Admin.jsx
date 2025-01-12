@@ -10,40 +10,59 @@ import DishHistoryPage from "../DishHistoryPage/DishHistoryPage";
 const AdminDashboard = () => {
   const [dishes, setDishes] = useState([]);
   const [ingredients, setIngredients] = useState([]);
-  const [blockchainTransactions, setBlockchainTransactions] = useState([]);
   const [averageScores, setAverageScores] = useState({ freshness: 0, quality: 0 });
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
   const [showAddDishForm, setShowAddDishForm] = useState(false);
   const [showAddIngredientForm, setShowAddIngredientForm] = useState(false);
   const [showManageDishPage, setShowManageDishPage] = useState(false);
   const [showManageIngredientsPage, setShowManageIngredientsPage] = useState(false);
 
   useEffect(() => {
+    // Fetch dishes and ingredients and reverse them to display from newest to oldest
     axios.get('https://food-quality-2s5r.onrender.com/api/dishes')
-      .then(response => setDishes(response.data))
+      .then(response => {
+        const reversedDishes = response.data.reverse(); // Reverse the dishes data before setting it
+        setDishes(reversedDishes);
+      })
       .catch(error => console.error('Error fetching dishes:', error));
 
     axios.get('https://food-quality-2s5r.onrender.com/api/ingredients')
-      .then(response => setIngredients(response.data))
+      .then(response => {
+        const reversedIngredients = response.data.reverse(); // Reverse the ingredients data before setting it
+        setIngredients(reversedIngredients);
+      })
       .catch(error => console.error('Error fetching ingredients:', error));
-
-    axios.get('https://food-quality-2s5r.onrender.com/api/blockchain/transactions')
-      .then(response => setBlockchainTransactions(response.data))
-      .catch(error => console.error('Error fetching blockchain transactions:', error));
 
     setAverageScores({ freshness: 85, quality: 90 });
-
   }, []);
 
-  const refreshIngredients = () => {
-    axios.get('https://food-quality-2s5r.onrender.com/api/ingredients')
-      .then(response => setIngredients(response.data))
-      .catch(error => console.error('Error fetching ingredients:', error));
+  const sortData = (data, key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+
+    const sortedData = [...data].sort((a, b) => {
+      if (a[key] < b[key]) return direction === 'ascending' ? -1 : 1;
+      if (a[key] > b[key]) return direction === 'ascending' ? 1 : -1;
+      return 0;
+    });
+
+    setSortConfig({ key, direction });
+    return sortedData;
   };
 
-  const refreshDishes = () => {
-    axios.get('https://food-quality-2s5r.onrender.com/api/dishes')
-      .then(response => setDishes(response.data))
-      .catch(error => console.error('Error fetching dishes:', error));
+  const handleDishSort = (key) => {
+    setDishes(sortData(dishes, key));
+  };
+
+  const handleIngredientSort = (key) => {
+    setIngredients(sortData(ingredients, key));
+  };
+
+  const getSortArrow = (key) => {
+    if (sortConfig.key !== key) return '';
+    return sortConfig.direction === 'ascending' ? ' ↑' : ' ↓';
   };
 
   return (
@@ -75,24 +94,26 @@ const AdminDashboard = () => {
         </div>
       </div>
       <main>
-        {showAddDishForm && <AddDishForm setShowForm={setShowAddDishForm} refreshDishes={refreshDishes} />}
-        {showAddIngredientForm && <AddIngredientForm setShowForm={setShowAddIngredientForm} refreshIngredients={refreshIngredients} />}
+        {showAddDishForm && <AddDishForm setShowForm={setShowAddDishForm} refreshDishes={() => setDishes([...dishes])} />}
+        {showAddIngredientForm && <AddIngredientForm setShowForm={setShowAddIngredientForm} refreshIngredients={() => setIngredients([...ingredients])} />}
         {showManageDishPage && <ManageDishPage />}
         {showManageIngredientsPage && <ManageIngredientsPage />}
-        
+
         <h2>Dishes</h2>
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Blockchain ID</th>
-              <th>Quality Score</th>
+              <th>Sno</th>
+              <th onClick={() => handleDishSort('name')}>Name {getSortArrow('name')}</th>
+              <th onClick={() => handleDishSort('blockchainId')}>Blockchain ID {getSortArrow('blockchainId')}</th>
+              <th onClick={() => handleDishSort('qualityScore')}>Quality Score {getSortArrow('qualityScore')}</th>
             </tr>
           </thead>
           <tbody>
             {dishes.length > 0 ? (
-              dishes.map((dish) => (
+              dishes.map((dish, index) => (
                 <tr key={dish._id}>
+                  <td>{index + 1}</td> {/* Display Serial Number */}
                   <td>{dish.name}</td>
                   <td>{dish.blockchainId}</td>
                   <td>{dish.qualityScore}</td>
@@ -100,7 +121,7 @@ const AdminDashboard = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="3">No dishes available</td>
+                <td colSpan="4">No dishes available</td>
               </tr>
             )}
           </tbody>
@@ -110,30 +131,31 @@ const AdminDashboard = () => {
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Blockchain ID</th>
-              <th>Description</th>
-              <th>Origin</th>
-              <th>Expiry Date</th>
-              <th>Quality Score</th>
+              <th>Sno</th>
+              <th onClick={() => handleIngredientSort('name')}>Name {getSortArrow('name')}</th>
+              <th onClick={() => handleIngredientSort('blockchainId')}>Blockchain ID {getSortArrow('blockchainId')}</th>
+              <th onClick={() => handleIngredientSort('description')}>Description {getSortArrow('description')}</th>
+              <th onClick={() => handleIngredientSort('origin')}>Origin {getSortArrow('origin')}</th>
+              <th onClick={() => handleIngredientSort('expiryDate')}>Expiry Date {getSortArrow('expiryDate')}</th>
+              <th onClick={() => handleIngredientSort('qualityScore')}>Quality Score {getSortArrow('qualityScore')}</th>
             </tr>
           </thead>
           <tbody>
             {ingredients.length > 0 ? (
-              ingredients.map((ingredient) => (
+              ingredients.map((ingredient, index) => (
                 <tr key={ingredient._id}>
+                  <td>{index + 1}</td> {/* Display Serial Number */}
                   <td>{ingredient.name}</td>
                   <td>{ingredient.blockchainId}</td>
                   <td>{ingredient.description}</td>
                   <td>{ingredient.origin}</td>
                   <td>{new Date(ingredient.expiryDate).toLocaleDateString()}</td>
                   <td>{ingredient.qualityScore}</td>
-
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="5">No ingredients available</td>
+                <td colSpan="7">No ingredients available</td>
               </tr>
             )}
           </tbody>

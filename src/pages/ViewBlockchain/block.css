@@ -1,194 +1,154 @@
-.blockchain-container {
-  margin-top: 100px;
-  padding: 20px;
-}
-
-.transaction-title {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.5fr;
-  align-items: center;
-  color: gray;
-  font-size: max(1vw, 12px);
-}
-
-.transaction-item {
-  margin: 10px 0px;
-  color: black;
-}
-
-.transaction-item img {
-  width: 50px;
-}
-
-.blockchain-container hr {
-  height: 1px;
-  background-color: #e2e2e2;
-  border: none;
-}
-
-.transaction-item .cross {
-  cursor: pointer;
-}
-
-.blockchain-bottom {
-  margin-top: 80px;
-  display: flex;
-  justify-content: space-between;
-  gap: max(12vw, 20px);
-}
-
-.transaction-total {
-  flex: 1;
+/* Admin Dashboard Styles */
+.admin-dashboard {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.transaction-total-details {
-  display: flex;
-  justify-content: space-between;
-  color: #555;
-}
-
-.transaction-total hr {
-  margin: 10px 0px;
-}
-
-.transaction-total button {
-  border: none;
-  color: white;
+header {
   background-color: tomato;
-  width: max(15vw, 200px);
-  padding: 12px 0px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.transaction-promocode {
-  flex: 1;
-}
-
-.transaction-promocode p {
-  color: #555;
-}
-
-.transaction-promocode-input {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #eaeaea;
-  border-radius: 4px;
-}
-
-.transaction-promocode-input input {
-  background: transparent;
-  border: none;
-  outline: none;
-  padding-left: 10px;
-}
-
-.transaction-promocode-input button {
-  width: max(10vw, 150px);
-  padding: 12px 5px;
-  background-color: black;
-  border: none;
   color: white;
-  border-radius: 4px;
+  padding: 1rem;
+  text-align: center;
 }
 
-.transaction-table th,
-.transaction-table td {
-  padding: 10px;
-  text-align: left;
-  border: 1px solid #ddd;
+header h1 {
+  margin: 0;
 }
 
-.transaction-table th {
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem;
+}
+
+.sidebar {
   background-color: #f4f4f4;
+  border-right: 1px solid #ddd;
+  padding: 1rem;
+  width: 200px;
 }
 
-button {
-  padding: 5px 10px;
+.sidebar button {
   background-color: tomato;
-  color: white;
   border: none;
+  color: white;
   cursor: pointer;
+  margin-bottom: 1rem;
+  padding: 0.3rem; /* Smaller padding */
+  width: 100%;
 }
 
-button:hover {
-  background-color: #0056b3;
+.sidebar button:hover {
+  background-color: tomato;
 }
 
-.modal-content {
-  padding: 20px;
-  background-color: #fff;
+.summary-widgets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+.widget {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  max-width: 600px;
-  margin: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  width: calc(33.333% - 1rem);
 }
 
-.modal-content h3 {
+.widget h3 {
   margin-top: 0;
 }
 
-.modal-content div {
-  margin-bottom: 10px;
+.widget ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-@media (max-width: 750px) {
-  .blockchain-bottom {
-    flex-direction: column-reverse;
-  }
-  .transaction-promocode {
-    justify-content: start;
-  }
-  .transaction-item p {
-    padding-left: 10px;
-  }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 1rem;
+  text-align: left;
+  table-layout: fixed; /* Ensures columns have equal width */
 }
 
-.loading-message {
-  font-size: 18px;
-  color: #555;
-  text-align: center;
-  margin: 20px 0;
-  position: relative;
-  animation: popIn 1s ease-out;
+th, td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  word-wrap: break-word; /* Handles long text gracefully */
 }
 
-.loading-message p {
-  display: inline-block;
-  position: relative;
-  animation: textMove 5s linear infinite;
-  white-space: nowrap;
+thead th {
+  background-color: rgb(255, 99, 71); /* Tomato color for headers */
+  color: white;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
-@keyframes popIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
+tbody tr:nth-child(odd) {
+  background-color: #f9f9f9; /* Light gray for odd rows */
+}
+
+tbody tr:nth-child(even) {
+  background-color: #ffffff; /* White for even rows */
+}
+
+tbody tr:hover {
+  background-color: rgba(255, 99, 71, 0.2); /* Light tomato hover effect */
+}
+
+td {
+  color: #333;
+  text-align: center; /* Center align the data */
+}
+
+th {
+  text-align: center; /* Center align headers */
+}
+
+.no-data {
+  text-align: center;
+  font-style: italic;
+  color: #999;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+  table {
+    font-size: 0.9rem;
   }
-  100% {
-    opacity: 1;
-    transform: scale(1);
+
+  th, td {
+    padding: 0.5rem;
   }
 }
 
-@keyframes textMove {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
-  }
+th {
+  cursor: pointer;
+  padding: 10px;
 }
 
+th:hover {
+  background-color: #f0f0f0;
+}
+
+.widget {
+  margin: 10px 0;
+}
+
+/* Bike animation */
 .bike-animation {
   position: absolute;
   bottom: 30px;
-  right: 10%;
+  left: 50%; /* Position bike in the center horizontally */
+  transform: translateX(-50%); /* Center the bike */
   animation: bikeMove 5s linear infinite;
 }
 
@@ -199,9 +159,103 @@ button:hover {
 
 @keyframes bikeMove {
   0% {
-    right: -100px;
+    left: -100px;
   }
   100% {
-    right: 100%;
+    left: 100%;
+  }
+}
+
+/* Style for the "View Details" button */
+button {
+  background-color: #ff6347; /* Tomato color */
+  color: white;
+  padding: 8px 12px; /* Smaller padding */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem; /* Smaller font size */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #e55347; /* Darker tomato color */
+  transform: scale(1.05);
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Modal Styles */
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.ReactModal__Content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 80%;
+  width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+}
+
+.ReactModal__Content h2 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.ReactModal__Content pre {
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 5px;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.ReactModal__Content button {
+  background-color: #f44336; /* Red for close button */
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+  display: inline-block;
+}
+
+.ReactModal__Content button:hover {
+  background-color: #d32f2f; /* Darker red */
+}
+
+/* For responsiveness */
+@media (max-width: 768px) {
+  .ReactModal__Content {
+    width: 90%;
+    padding: 15px;
+  }
+
+  button {
+    padding: 8px 12px;
+  }
+
+  .ReactModal__Content h2 {
+    font-size: 1.25rem;
+  }
+
+  .ReactModal__Content pre {
+    font-size: 0.85rem;
   }
 }
