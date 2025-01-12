@@ -25,9 +25,7 @@ const FoodDisplay = ({ category }) => {
                   key={index}
                   id={item._id}
                   name={item.name}
-                  description={item.description}
                   price={item.price}
-                  image={item.image}
                   qualityScore={item.qualityScore}
                   onClickQualityScore={() => fetchDishHistory(item.blockchainId)}
                 />

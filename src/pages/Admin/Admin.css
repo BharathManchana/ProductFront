@@ -5,7 +5,7 @@
 }
 
 header {
-  background-color: #4CAF50;
+  background-color: tomato;
   color: white;
   padding: 1rem;
   text-align: center;
@@ -29,7 +29,7 @@ header h1 {
 }
 
 .sidebar button {
-  background-color: #4CAF50;
+  background-color: tomato;
   border: none;
   color: white;
   cursor: pointer;
@@ -39,7 +39,7 @@ header h1 {
 }
 
 .sidebar button:hover {
-  background-color: #45a049;
+  background-color: tomato;
 }
 
 .summary-widgets {

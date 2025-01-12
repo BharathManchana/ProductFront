@@ -29,12 +29,12 @@ ul {
 
 strong {
   cursor: pointer;
-  color: #007BFF;
+  color: tomato;
   text-decoration: underline;
 }
 
 strong:hover {
-  color: #0056b3;
+  color: tomato;
 }
 
 h3 {

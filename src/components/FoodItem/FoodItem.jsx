@@ -6,18 +6,15 @@ import { StoreContext } from "../../context/StoreContext";
 const FoodItem = ({
   id,
   name,
-  description,
   price,
-  image,
   qualityScore,
   onClickQualityScore,
 }) => {
-  const { cartItems, addToCart, removeFromCart, url } = useContext(StoreContext);
+  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
 
   return (
     <div className="food-item">
       <div className="food-item-img-container">
-        <img src={image} alt={name} className="food-item-image" />
         {!cartItems[id] ? (
           <img
             className="add"
@@ -45,7 +42,7 @@ const FoodItem = ({
       <div className="food-item-info">
         <div className="food-item-name-rating">
           <p>{name}</p>
-          <img src={assets.rating_stars} alt="Rating Stars" />
+          <img src={assets.rating_starts} alt="Rating Stars" />
         </div>
         <p className="food-item-price">${price}</p>
 
