@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const LoginPopup = ({ setShowLogin }) => {
-  const {url, setToken } = useContext(StoreContext);
+  const { url, setToken } = useContext(StoreContext);
   const [currentState, setCurrentState] = useState("Login");
   const [data, setData] = useState({
     name: "",
@@ -34,10 +34,11 @@ const LoginPopup = ({ setShowLogin }) => {
       localStorage.setItem("token", response.data.token);
       toast.success("Login Successfully")
       setShowLogin(false);
-    }else{
+    } else {
       toast.error(response.data.message);
     }
   };
+
   return (
     <div className="login-popup">
       <form onSubmit={onLogin} className="login-popup-container">
@@ -84,7 +85,7 @@ const LoginPopup = ({ setShowLogin }) => {
         </button>
         <div className="login-popup-condition">
           <input type="checkbox" required />
-          <p>By continuing, i agree to the terms of use & privacy policy.</p>
+          <p>By continuing, I agree to the terms of use & privacy policy.</p>
         </div>
         {currentState === "Login" ? (
           <p>
