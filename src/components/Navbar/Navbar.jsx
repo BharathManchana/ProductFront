@@ -31,7 +31,7 @@ const Navbar = ({ setShowLogin }) => {
           Home
         </Link>
         <Link
-          to="#explore-menu"
+          to="/food"
           onClick={() => setMenu("menu")}
           className={menu === "menu" ? "active" : ""}
         >
@@ -51,7 +51,6 @@ const Navbar = ({ setShowLogin }) => {
         >
           About Us
         </Link>
-        {/* Replaced Link */}
         <Link
           to="/admin"
           onClick={() => setMenu("admin")}
