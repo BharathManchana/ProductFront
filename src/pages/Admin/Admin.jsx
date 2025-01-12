@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './Admin.css';
 import AddDishForm from './AddDishForm';
 import AddIngredientForm from './AddIngForm';
 import ManageDishPage from './ManageDish';
 import ManageIngredientsPage from './ManageIng';
-import DishHistoryPage from "../DishHistoryPage/DishHistoryPage";
+import Blockchain from '../ViewBlockchain/block'
 
 const AdminDashboard = () => {
   const [dishes, setDishes] = useState([]);
@@ -16,6 +17,7 @@ const AdminDashboard = () => {
   const [showAddIngredientForm, setShowAddIngredientForm] = useState(false);
   const [showManageDishPage, setShowManageDishPage] = useState(false);
   const [showManageIngredientsPage, setShowManageIngredientsPage] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('https://food-quality-2s5r.onrender.com/api/dishes')
@@ -64,6 +66,7 @@ const AdminDashboard = () => {
     return sortConfig.direction === 'ascending' ? ' ↑' : ' ↓';
   };
 
+
   return (
     <div className="admin-dashboard">
       <header>
@@ -75,7 +78,7 @@ const AdminDashboard = () => {
           <button onClick={() => setShowManageDishPage(true)}>Manage Dishes</button>
           <button onClick={() => setShowAddIngredientForm(true)}>Add Ingredient</button>
           <button onClick={() => setShowManageIngredientsPage(true)}>Manage Ingredients</button>
-          <button onClick={() => { DishHistoryPage(true); }}>Blockchain Transactions</button>
+          <button onClick={() => navigate('/blockchain-history')}>Blockchain Transactions</button>
         </div>
         <div className="summary-widgets">
           <div className="widget">
@@ -93,10 +96,38 @@ const AdminDashboard = () => {
         </div>
       </div>
       <main>
-        {showAddDishForm && <AddDishForm setShowForm={setShowAddDishForm} refreshDishes={() => setDishes([...dishes])} />}
-        {showAddIngredientForm && <AddIngredientForm setShowForm={setShowAddIngredientForm} refreshIngredients={() => setIngredients([...ingredients])} />}
-        {showManageDishPage && <ManageDishPage />}
-        {showManageIngredientsPage && <ManageIngredientsPage />}
+        {showAddDishForm && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={() => setShowAddDishForm(false)}>&times;</span>
+              <AddDishForm setShowForm={setShowAddDishForm} refreshDishes={() => setDishes([...dishes])} />
+            </div>
+          </div>
+        )}
+        {showAddIngredientForm && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={() => setShowAddIngredientForm(false)}>&times;</span>
+              <AddIngredientForm setShowForm={setShowAddIngredientForm} refreshIngredients={() => setIngredients([...ingredients])} />
+            </div>
+          </div>
+        )}
+        {showManageDishPage && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={() => setShowManageDishPage(false)}>&times;</span>
+              <ManageDishPage />
+            </div>
+          </div>
+        )}
+        {showManageIngredientsPage && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={() => setShowManageIngredientsPage(false)}>&times;</span>
+              <ManageIngredientsPage />
+            </div>
+          </div>
+        )}
 
         <h2>Dishes</h2>
         <table>

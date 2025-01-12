@@ -45,11 +45,11 @@ const Navbar = ({ setShowLogin }) => {
           View Blockchain History
         </Link>
         <Link
-          to="#footer"
-          onClick={() => setMenu("contact-us")}
-          className={menu === "contact-us" ? "active" : ""}
+          to="/about"
+          onClick={() => setMenu("about")}
+          className={menu === "about" ? "active" : ""}
         >
-          Contact Us
+          About Us
         </Link>
         {/* Replaced Link */}
         <Link

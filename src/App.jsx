@@ -13,6 +13,7 @@ import MyOrders from "./pages/MyOrders/MyOrders";
 import Blockchain from "./pages/ViewBlockchain/block";
 import DishHistoryPage from "./pages/DishHistoryPage/DishHistoryPage";
 import AdminDashboard from "./pages/Admin/Admin";
+import About from "./pages/About/About"
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/blockchain-history" element={<Blockchain />} />
           <Route path="/dish-history/:dishId" element={<DishHistoryPage />} />
           <Route path="/Admin" element={<AdminDashboard />} />
+          <Route path="/About" element={<About />} />
         </Routes>
       </div>
       <Footer />

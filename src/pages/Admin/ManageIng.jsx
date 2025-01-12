@@ -6,10 +6,7 @@ const ManageIngredientsPage = () => {
   const [selectedIngredient, setSelectedIngredient] = useState(null);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [updatedName, setUpdatedName] = useState('');
-  const [updatedDescription, setUpdatedDescription] = useState('');
-  const [updatedOrigin, setUpdatedOrigin] = useState('');
   const [updatedExpiryDate, setUpdatedExpiryDate] = useState('');
-  const [updatedQuantity, setUpdatedQuantity] = useState('');
 
   useEffect(() => {
     fetchIngredients();
@@ -40,10 +37,7 @@ const ManageIngredientsPage = () => {
 
     const data = {};
     if (updatedName) data.name = updatedName;
-    if (updatedDescription) data.description = updatedDescription;
-    if (updatedOrigin) data.origin = updatedOrigin;
     if (updatedExpiryDate) data.expiryDate = updatedExpiryDate;
-    if (updatedQuantity) data.quantity = parseInt(updatedQuantity, 10);
 
     try {
       await axios.put(`https://food-quality-2s5r.onrender.com/api/ingredients/update/${selectedIngredient.blockchainId}`, data);
@@ -70,10 +64,7 @@ const ManageIngredientsPage = () => {
   const handleUpdateClick = (ingredient) => {
     setSelectedIngredient(ingredient);
     setUpdatedName(ingredient.name || '');
-    setUpdatedDescription(ingredient.description || '');
-    setUpdatedOrigin(ingredient.origin || '');
     setUpdatedExpiryDate(ingredient.expiryDate || '');
-    setUpdatedQuantity(ingredient.quantity || '');
     setShowUpdateForm(true);
   };
 
@@ -88,33 +79,28 @@ const ManageIngredientsPage = () => {
             <input type="text" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} />
           </div>
           <div>
-            <label>Description:</label>
-            <input type="text" value={updatedDescription} onChange={(e) => setUpdatedDescription(e.target.value)} />
-          </div>
-          <div>
-            <label>Origin:</label>
-            <input type="text" value={updatedOrigin} onChange={(e) => setUpdatedOrigin(e.target.value)} />
-          </div>
-          <div>
             <label>Expiry Date:</label>
             <input type="date" value={updatedExpiryDate} onChange={(e) => setUpdatedExpiryDate(e.target.value)} />
           </div>
           <div>
-            <label>Quantity:</label>
-            <input type="number" value={updatedQuantity} onChange={(e) => setUpdatedQuantity(e.target.value)} />
+            <button type="submit">Update Ingredient</button>
+            <button type="button" onClick={() => setShowUpdateForm(false)}>×</button>
           </div>
-          <button type="submit">Update Ingredient</button>
-          <button type="button" onClick={() => setShowUpdateForm(false)}>Cancel</button>
         </form>
       ) : (
         <div>
           <ul>
             {ingredients.map(ingredient => (
               <li key={ingredient.blockchainId}>
-                <span>{ingredient.name} - {ingredient.quantity} units</span>
-                <button onClick={() => handleUpdateClick(ingredient)}>Update</button>
-                <button onClick={() => deleteIngredient(ingredient.blockchainId)}>Delete</button>
-                <button onClick={() => viewIngredientTransaction(ingredient.blockchainId)}>View Transaction</button>
+                <div>
+                  <h4>{ingredient.name}</h4>
+                  <p>Expiry Date: {new Date(ingredient.expiryDate).toLocaleDateString()}</p>
+                </div>
+                <div>
+                  <button onClick={() => handleUpdateClick(ingredient)}>Update</button>
+                  <button onClick={() => deleteIngredient(ingredient.blockchainId)}>Delete</button>
+                  <button onClick={() => viewIngredientTransaction(ingredient.blockchainId)}>View Transaction</button>
+                </div>
               </li>
             ))}
           </ul>

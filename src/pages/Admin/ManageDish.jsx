@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./ManageDish.css"
 
 const ManageDishPage = () => {
   const [dishes, setDishes] = useState([]);
@@ -81,34 +82,39 @@ const ManageDishPage = () => {
     <div className="manage-dish-page">
       <h2>Manage Dishes</h2>
       {showUpdateForm ? (
-        <form onSubmit={updateDish}>
-          <h3>Update Dish</h3>
-          <div>
-            <label>Name:</label>
-            <input type="text" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} />
-          </div>
-          <div>
-            <label>Price:</label>
-            <input type="number" value={updatedPrice} onChange={(e) => setUpdatedPrice(e.target.value)} />
-          </div>
-          <div>
-            <label>Ingredients:</label>
-            {ingredients.map(ingredient => (
-              <div key={ingredient.blockchainId}>
-                <input
-                  type="checkbox"
-                  id={ingredient.blockchainId}
-                  value={ingredient.blockchainId}
-                  checked={selectedIngredients.includes(ingredient.blockchainId)}
-                  onChange={() => handleIngredientChange(ingredient.blockchainId)}
-                />
-                <label htmlFor={ingredient.blockchainId}>{ingredient.name}</label>
+        <div className="popup">
+          <div className="popup-content">
+            <button className="close-button" onClick={() => setShowUpdateForm(false)}>✖</button>
+            <form onSubmit={updateDish}>
+              <h3>Update Dish</h3>
+              <div>
+                <label>Name:</label>
+                <input type="text" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} required />
               </div>
-            ))}
+              <div>
+                <label>Price:</label>
+                <input type="number" value={updatedPrice} onChange={(e) => setUpdatedPrice(e.target.value)} required />
+              </div>
+              <div>
+                <label>Ingredients:</label>
+                {ingredients.map(ingredient => (
+                  <div key={ingredient.blockchainId}>
+                    <input
+                      type="checkbox"
+                      id={ingredient.blockchainId}
+                      value={ingredient.blockchainId}
+                      checked={selectedIngredients.includes(ingredient.blockchainId)}
+                      onChange={() => handleIngredientChange(ingredient.blockchainId)}
+                    />
+                    <label htmlFor={ingredient.blockchainId}>{ingredient.name}</label>
+                  </div>
+                ))}
+              </div>
+              <button type="submit">Update Dish</button>
+              <button type="button" onClick={() => setShowUpdateForm(false)}>Cancel</button>
+            </form>
           </div>
-          <button type="submit">Update Dish</button>
-          <button type="button" onClick={() => setShowUpdateForm(false)}>Cancel</button>
-        </form>
+        </div>
       ) : (
         <div>
           {dishes.map(dish => (
