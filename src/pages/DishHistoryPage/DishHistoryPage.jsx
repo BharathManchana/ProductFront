@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import ReactJson from 'react-json-view';
 
 const DishHistoryPage = () => {
   const { dishId } = useParams();
@@ -29,7 +28,7 @@ const DishHistoryPage = () => {
         <>
           <div className="box">
             <h4>Blockchain Transaction</h4>
-            <ReactJson src={dishHistory.blockchainTransaction} theme="rjv-default" collapsed={1} />
+            <pre>{JSON.stringify(dishHistory.blockchainTransaction, null, 2)}</pre>
           </div>
 
           <div className="box">
@@ -37,7 +36,7 @@ const DishHistoryPage = () => {
             {dishHistory.ingredientHistories?.map((history, index) => (
               <div key={index} className="ingredient-history">
                 <h5>Ingredient {index + 1}</h5>
-                <ReactJson src={history} theme="rjv-default" collapsed={1} />
+                <pre>{JSON.stringify(history, null, 2)}</pre>
               </div>
             ))}
           </div>
