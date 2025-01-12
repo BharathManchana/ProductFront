@@ -1,46 +1,49 @@
 .dish-history-page {
   font-family: Arial, sans-serif;
   padding: 20px;
+  background-color: #f9f9f9;
+  color: #333;
+  max-width: 1200px;
+  margin: auto;
 }
 
-h4 {
-  margin-top: 0;
+h4, h5 {
   margin-bottom: 10px;
+  font-size: 2rem;
+  padding: 15px;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: #2c3e50;
 }
 
-h5 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.jsoneditor-container {
-  margin-top: 20px;
+.box {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-div {
-  margin-left: 10px;
+.box:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-ul {
-  list-style-type: none;
-  padding-left: 20px;
+.ingredient-history {
+  margin-top: 15px;
 }
 
-strong {
-  cursor: pointer;
-  color: tomato;
-  text-decoration: underline;
+.ingredient-history h5 {
+  color: #e74c3c;
 }
 
-strong:hover {
-  color: tomato;
-}
-
-h3 {
-  margin-bottom: 20px;
-}
-
-.dish-info {
-  margin-bottom: 20px;
+.react-json-view {
+  font-family: Consolas, monospace;
+  background: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
 }
