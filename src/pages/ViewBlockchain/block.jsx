@@ -89,7 +89,7 @@ const Blockchain = () => {
           {loading && (
             <div className="loading-message">
               <div className="bike-animation">
-                <img src="./src/assets/bike.png" alt="Loading bike" className="bike" />
+                <img src="./bike.png" alt="loading image" className="bike" />
               </div>
               <p>Hold on! The database is in another continent. Please wait while we fetch the data...</p>
             </div>
