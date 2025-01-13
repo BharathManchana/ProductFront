@@ -42,8 +42,44 @@ h4, h5 {
 
 .react-json-view {
   font-family: Consolas, monospace;
-  background: #f7f7f7;
+  background: #000;
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 10px;
+  color: #fff;
+}
+
+.jsoneditor .jsoneditor-tree .jsoneditor-hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+.jsoneditor .jsoneditor-tree .jsoneditor-hover {
+  cursor: default !important;
+}
+
+.jsoneditor .jsoneditor-search .jsoneditor-search-input:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+.jsoneditor .jsoneditor-tree .jsoneditor-value {
+  color: #ff4500 !important;
+}
+
+.jsoneditor .jsoneditor-tree .jsoneditor-field {
+  color: #32cd32 !important;
+}
+
+.jsoneditor .jsoneditor-tree .jsoneditor-string {
+  color: #1e90ff !important;
+}
+
+.jsoneditor .jsoneditor-tree .jsoneditor-number {
+  color: #ffd700 !important;
+}
+
+.jsoneditor {
+  background-color: #000 !important;
+  color: #fff !important;
 }

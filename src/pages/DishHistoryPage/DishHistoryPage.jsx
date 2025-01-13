@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import JSONEditor from "jsoneditor";
+import "jsoneditor/dist/jsoneditor.min.css"; 
+import '../DishHistoryPage/DishHistoryPage.css'
 
 const DishHistoryPage = () => {
   const { dishId } = useParams();
   const [dishHistory, setDishHistory] = useState(null);
+  const jsonEditorRefs = useRef([]); 
 
   useEffect(() => {
     const fetchDishHistory = async () => {
@@ -22,25 +26,75 @@ const DishHistoryPage = () => {
     fetchDishHistory();
   }, [dishId]);
 
+  useEffect(() => {
+    if (dishHistory) {
+      if (jsonEditorRefs.current[0] && !jsonEditorRefs.current[0].editor) {
+        const editor = new JSONEditor(jsonEditorRefs.current[0], {
+          mode: "tree", 
+          search: true, 
+          navigationBar: true, 
+          statusBar: true,
+          onChange: () => {
+            document.querySelectorAll('.jsoneditor .jsoneditor-value').forEach(element => {
+              element.style.color = '#ff4500';
+            });
+            document.querySelectorAll('.jsoneditor .jsoneditor-field').forEach(element => {
+              element.style.color = '#32cd32';
+            });
+            document.querySelectorAll('.jsoneditor .jsoneditor-string').forEach(element => {
+              element.style.color = '#1e90ff';
+            });
+            document.querySelectorAll('.jsoneditor .jsoneditor-number').forEach(element => {
+              element.style.color = '#ffd700';
+            });
+          }
+        });
+        editor.set(dishHistory);
+      }
+
+      dishHistory.ingredientHistories?.forEach((history, index) => {
+        if (jsonEditorRefs.current[index + 1] && !jsonEditorRefs.current[index + 1].editor) {
+          const editor = new JSONEditor(jsonEditorRefs.current[index + 1], {
+            mode: "tree",
+            search: true,
+            navigationBar: true,
+            statusBar: true,
+            onChange: () => {
+              document.querySelectorAll('.jsoneditor .jsoneditor-value').forEach(element => {
+                element.style.color = '#ff4500';
+              });
+              document.querySelectorAll('.jsoneditor .jsoneditor-field').forEach(element => {
+                element.style.color = '#32cd32';
+              });
+              document.querySelectorAll('.jsoneditor .jsoneditor-string').forEach(element => {
+                element.style.color = '#1e90ff';
+              });
+              document.querySelectorAll('.jsoneditor .jsoneditor-number').forEach(element => {
+                element.style.color = '#ffd700';
+              });
+            }
+          });
+          editor.set(history);
+        }
+      });
+    }
+  }, [dishHistory]);
+
   return (
     <div className="dish-history-page">
       {dishHistory ? (
-        <>
-          <div className="box">
-            <h4>Blockchain Transaction</h4>
-            <pre>{JSON.stringify(dishHistory.blockchainTransaction, null, 2)}</pre>
-          </div>
+        <div>
+          <h4 style={{ marginTop: "0" }}>Blockchain Transaction</h4>
+          <div ref={(el) => (jsonEditorRefs.current[0] = el)} style={{ height: "400px", marginBottom: "20px" }} className="jsoneditor-container"></div>
 
-          <div className="box">
-            <h4>Ingredient Histories</h4>
-            {dishHistory.ingredientHistories?.map((history, index) => (
-              <div key={index} className="ingredient-history">
-                <h5>Ingredient {index + 1}</h5>
-                <pre>{JSON.stringify(history, null, 2)}</pre>
-              </div>
-            ))}
-          </div>
-        </>
+          <h4>Ingredient Histories</h4>
+          {dishHistory.ingredientHistories?.map((history, index) => (
+            <div key={index} style={{ marginTop: "20px" }}>
+              <h5>Ingredient {index + 1}</h5>
+              <div ref={(el) => (jsonEditorRefs.current[index + 1] = el)} style={{ height: "400px", marginBottom: "20px" }} className="jsoneditor-container"></div>
+            </div>
+          ))}
+        </div>
       ) : (
         <p>Loading...</p>
       )}
