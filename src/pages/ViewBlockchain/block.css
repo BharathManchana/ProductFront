@@ -255,3 +255,14 @@ button:focus {
     font-size: 0.85rem;
   }
 }
+
+.warning-message {
+  background-color: #ffcccc;
+  color: #cc0000;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 1rem 0;
+  border: 1px solid #cc0000;
+  border-radius: 5px;
+}

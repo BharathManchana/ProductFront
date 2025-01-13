@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './ManageIng.css';
 
 const ManageIngredientsPage = () => {
   const [ingredients, setIngredients] = useState([]);
@@ -72,23 +73,25 @@ const ManageIngredientsPage = () => {
     <div className="manage-ingredients-page">
       <h2>Manage Ingredients</h2>
       {showUpdateForm ? (
-        <form onSubmit={updateIngredient}>
-          <h3>Update Ingredient</h3>
-          <div>
-            <label>Name:</label>
-            <input type="text" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} />
-          </div>
-          <div>
-            <label>Expiry Date:</label>
-            <input type="date" value={updatedExpiryDate} onChange={(e) => setUpdatedExpiryDate(e.target.value)} />
-          </div>
-          <div>
-            <button type="submit">Update Ingredient</button>
-            <button type="button" onClick={() => setShowUpdateForm(false)}>×</button>
-          </div>
-        </form>
+        <div className="update-form-container">
+          <form onSubmit={updateIngredient}>
+            <h3>Update Ingredient</h3>
+            <div>
+              <label>Name:</label>
+              <input type="text" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} />
+            </div>
+            <div>
+              <label>Expiry Date:</label>
+              <input type="date" value={updatedExpiryDate} onChange={(e) => setUpdatedExpiryDate(e.target.value)} />
+            </div>
+            <div>
+              <button type="submit">Update Ingredient</button>
+              <button type="button" onClick={() => setShowUpdateForm(false)} className="close-button">×</button>
+            </div>
+          </form>
+        </div>
       ) : (
-        <div>
+        <div className="ingredients-list">
           <ul>
             {ingredients.map(ingredient => (
               <li key={ingredient.blockchainId}>

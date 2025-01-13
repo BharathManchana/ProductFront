@@ -7,8 +7,18 @@ import { toast } from "react-toastify";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
   const navigate = useNavigate();
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const handleLinkClick = (menu) => {
+    setMenu(menu);
+    setSidebarOpen(false);
+  };
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -22,38 +32,41 @@ const Navbar = ({ setShowLogin }) => {
       <Link to="/">
         <img src={assets.logo} alt="Logo" className="logo" />
       </Link>
-      <ul className="navbar-menu">
+      <div className="navbar-toggle" onClick={toggleSidebar}>
+        <img src={assets.menu_icon} alt="Menu Icon" className="menu-icon" />
+      </div>
+      <ul className={`navbar-menu ${sidebarOpen ? "active" : ""}`}>
         <Link
           to="/"
-          onClick={() => setMenu("home")}
+          onClick={() => handleLinkClick("home")}
           className={menu === "home" ? "active" : ""}
         >
           Home
         </Link>
         <Link
           to="/food"
-          onClick={() => setMenu("menu")}
+          onClick={() => handleLinkClick("menu")}
           className={menu === "menu" ? "active" : ""}
         >
           Menu
         </Link>
         <Link
           to="/blockchain-history"
-          onClick={() => setMenu("View Blockchain History")}
+          onClick={() => handleLinkClick("View Blockchain History")}
           className={menu === "View Blockchain History" ? "active" : ""}
         >
           View Blockchain History
         </Link>
         <Link
           to="/about"
-          onClick={() => setMenu("about")}
+          onClick={() => handleLinkClick("about")}
           className={menu === "about" ? "active" : ""}
         >
           About Us
         </Link>
         <Link
           to="/admin"
-          onClick={() => setMenu("admin")}
+          onClick={() => handleLinkClick("admin")}
           className={menu === "admin" ? "active" : ""}
         >
           Admin Page

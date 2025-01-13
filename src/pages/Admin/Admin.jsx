@@ -66,7 +66,6 @@ const AdminDashboard = () => {
     return sortConfig.direction === 'ascending' ? ' ↑' : ' ↓';
   };
 
-
   return (
     <div className="admin-dashboard">
       <header>
@@ -130,66 +129,70 @@ const AdminDashboard = () => {
         )}
 
         <h2>Dishes</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Sno</th>
-              <th onClick={() => handleDishSort('name')}>Name {getSortArrow('name')}</th>
-              <th onClick={() => handleDishSort('blockchainId')}>Blockchain ID {getSortArrow('blockchainId')}</th>
-              <th onClick={() => handleDishSort('qualityScore')}>Quality Score {getSortArrow('qualityScore')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {dishes.length > 0 ? (
-              dishes.map((dish, index) => (
-                <tr key={dish._id}>
-                  <td>{index + 1}</td>
-                  <td>{dish.name}</td>
-                  <td>{dish.blockchainId}</td>
-                  <td>{dish.qualityScore}</td>
-                </tr>
-              ))
-            ) : (
+        <div className="table-wrapper">
+          <table>
+            <thead>
               <tr>
-                <td colSpan="4">No dishes available</td>
+                <th>Sno</th>
+                <th onClick={() => handleDishSort('name')}>Name {getSortArrow('name')}</th>
+                <th onClick={() => handleDishSort('blockchainId')}>Blockchain ID {getSortArrow('blockchainId')}</th>
+                <th onClick={() => handleDishSort('qualityScore')}>Quality Score {getSortArrow('qualityScore')}</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {dishes.length > 0 ? (
+                dishes.map((dish, index) => (
+                  <tr key={dish._id}>
+                    <td>{index + 1}</td>
+                    <td>{dish.name}</td>
+                    <td>{dish.blockchainId}</td>
+                    <td>{dish.qualityScore}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4">No dishes available</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
 
         <h2>Ingredients</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Sno</th>
-              <th onClick={() => handleIngredientSort('name')}>Name {getSortArrow('name')}</th>
-              <th onClick={() => handleIngredientSort('blockchainId')}>Blockchain ID {getSortArrow('blockchainId')}</th>
-              <th onClick={() => handleIngredientSort('description')}>Description {getSortArrow('description')}</th>
-              <th onClick={() => handleIngredientSort('origin')}>Origin {getSortArrow('origin')}</th>
-              <th onClick={() => handleIngredientSort('expiryDate')}>Expiry Date {getSortArrow('expiryDate')}</th>
-              <th onClick={() => handleIngredientSort('qualityScore')}>Quality Score {getSortArrow('qualityScore')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ingredients.length > 0 ? (
-              ingredients.map((ingredient, index) => (
-                <tr key={ingredient._id}>
-                  <td>{index + 1}</td>
-                  <td>{ingredient.name}</td>
-                  <td>{ingredient.blockchainId}</td>
-                  <td>{ingredient.description}</td>
-                  <td>{ingredient.origin}</td>
-                  <td>{new Date(ingredient.expiryDate).toLocaleDateString()}</td>
-                  <td>{ingredient.qualityScore}</td>
-                </tr>
-              ))
-            ) : (
+        <div className="table-wrapper">
+          <table>
+            <thead>
               <tr>
-                <td colSpan="7">No ingredients available</td>
+                <th>Sno</th>
+                <th onClick={() => handleIngredientSort('name')}>Name {getSortArrow('name')}</th>
+                <th onClick={() => handleIngredientSort('blockchainId')}>Blockchain ID {getSortArrow('blockchainId')}</th>
+                <th onClick={() => handleIngredientSort('description')}>Description {getSortArrow('description')}</th>
+                <th onClick={() => handleIngredientSort('origin')}>Origin {getSortArrow('origin')}</th>
+                <th onClick={() => handleIngredientSort('expiryDate')}>Expiry Date {getSortArrow('expiryDate')}</th>
+                <th onClick={() => handleIngredientSort('qualityScore')}>Quality Score {getSortArrow('qualityScore')}</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {ingredients.length > 0 ? (
+                ingredients.map((ingredient, index) => (
+                  <tr key={ingredient._id}>
+                    <td>{index + 1}</td>
+                    <td>{ingredient.name}</td>
+                    <td>{ingredient.blockchainId}</td>
+                    <td>{ingredient.description}</td>
+                    <td>{ingredient.origin}</td>
+                    <td>{new Date(ingredient.expiryDate).toLocaleDateString()}</td>
+                    <td>{ingredient.qualityScore}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7">No ingredients available</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </main>
     </div>
   );

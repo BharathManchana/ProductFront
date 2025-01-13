@@ -9,6 +9,22 @@ const Blockchain = () => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+  const [showWarning, setShowWarning] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setShowWarning(window.innerWidth < 1024);
+    };
+
+    // Check screen size on initial load
+    handleResize();
+
+    // Add event listener to handle window resizing
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -64,56 +80,65 @@ const Blockchain = () => {
 
   return (
     <div className="blockchain-container">
-      <h2>Blockchain Records</h2>
-  
-      {loading && (
-        <div className="loading-message">
-          <div className="bike-animation">
-            <img src="./src/assets/bike.png" alt="Loading bike" className="bike" />
-          </div>
-          <p>Hold on! The database is in another continent. Please wait while we fetch the data...</p>
+      {showWarning && (
+        <div className="warning-message">
+          <p>This content is best viewed on a desktop. For an optimal experience, please switch to a larger screen or enable desktop view on the current device.</p>
         </div>
       )}
-  
-      {!loading && transactions.length > 0 && (
-        <table className="transaction-table">
-          <thead>
-            <tr>
-              <th>Sno</th>
-              <th onClick={() => handleSort('timestamp')}>Timestamp {getSortArrow('timestamp')}</th>
-              <th onClick={() => handleSort('action')}>Action {getSortArrow('action')}</th>
-              <th onClick={() => handleSort('name')}>Name {getSortArrow('name')}</th>
-              <th onClick={() => handleSort('blockchainId')}>Blockchain ID {getSortArrow('blockchainId')}</th>
-              <th onClick={() => handleSort('updatedFields')}>Updated Fields {getSortArrow('updatedFields')}</th>
-              <th>Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions.map((transaction, index) => (
-              <tr key={transaction.blockchainId}>
-                <td>{index + 1}</td>
-                <td>{new Date(transaction.timestamp).toLocaleString()}</td>
-                <td>{transaction.action || 'N/A'}</td>
-                <td>{transaction.name}</td>
-                <td>{transaction.blockchainId}</td>
-                <td>{transaction.updatedFields.length > 0 ? transaction.updatedFields.join(', ') : 'N/A'}</td>
-                <td>
-                  <button onClick={() => openTransactionDetails(transaction)}>
-                    View Details
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-  
-      {isModalOpen && selectedTransaction && (
-        <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
-          <h2>Transaction Details</h2>
-          <pre>{JSON.stringify(selectedTransaction, null, 2)}</pre>
-          <button onClick={closeModal}>Close</button>
-        </Modal>
+
+      {!showWarning && (
+        <>
+          <h2>Blockchain Records</h2>
+          {loading && (
+            <div className="loading-message">
+              <div className="bike-animation">
+                <img src="./src/assets/bike.png" alt="Loading bike" className="bike" />
+              </div>
+              <p>Hold on! The database is in another continent. Please wait while we fetch the data...</p>
+            </div>
+          )}
+
+          {!loading && transactions.length > 0 && (
+            <table className="transaction-table">
+              <thead>
+                <tr>
+                  <th>Sno</th>
+                  <th onClick={() => handleSort('timestamp')}>Timestamp {getSortArrow('timestamp')}</th>
+                  <th onClick={() => handleSort('action')}>Action {getSortArrow('action')}</th>
+                  <th onClick={() => handleSort('name')}>Name {getSortArrow('name')}</th>
+                  <th onClick={() => handleSort('blockchainId')}>Blockchain ID {getSortArrow('blockchainId')}</th>
+                  <th onClick={() => handleSort('updatedFields')}>Updated Fields {getSortArrow('updatedFields')}</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map((transaction, index) => (
+                  <tr key={transaction.blockchainId}>
+                    <td>{index + 1}</td>
+                    <td>{new Date(transaction.timestamp).toLocaleString()}</td>
+                    <td>{transaction.action || 'N/A'}</td>
+                    <td>{transaction.name}</td>
+                    <td>{transaction.blockchainId}</td>
+                    <td>{transaction.updatedFields.length > 0 ? transaction.updatedFields.join(', ') : 'N/A'}</td>
+                    <td>
+                      <button onClick={() => openTransactionDetails(transaction)}>
+                        View Details
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+
+          {isModalOpen && selectedTransaction && (
+            <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
+              <h2>Transaction Details</h2>
+              <pre>{JSON.stringify(selectedTransaction, null, 2)}</pre>
+              <button onClick={closeModal}>Close</button>
+            </Modal>
+          )}
+        </>
       )}
     </div>
   );
