@@ -132,8 +132,19 @@ tbody tr:hover {
   position: absolute;
   top: 10px;
   right: 20px;
-  font-size: 24px;
+  font-size: 36px;
+  color: red;
+  font-weight: bold;
   cursor: pointer;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.close:hover {
+  color: darkred;
+  transform: scale(1.2);
 }
 
 @media (max-width: 768px) {
@@ -149,4 +160,15 @@ tbody tr:hover {
     width: 100%;
     margin-bottom: 1rem;
   }
+}
+
+.small-screen-warning {
+  background-color: #f2dede;
+  color: #a94442;
+  padding: 10px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid #ebccd1;
+  margin: 10px 0;
 }

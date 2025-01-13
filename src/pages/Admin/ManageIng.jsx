@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './ManageIng.css';
+import './ManageIng.css'; 
 
 const ManageIngredientsPage = () => {
   const [ingredients, setIngredients] = useState([]);

@@ -3,14 +3,15 @@
   padding: 20px;
   background-color: #f9f9f9;
   color: #333;
-  max-width: 1200px;
+  max-width: 100%;
   margin: auto;
+  box-sizing: border-box;
 }
 
 h4, h5 {
   margin-bottom: 10px;
-  font-size: 2rem;
-  padding: 15px;
+  font-size: 1rem;
+  padding: 10px;
   background-color: #fff;
   border: 2px solid #ddd;
   border-radius: 10px;
@@ -18,35 +19,16 @@ h4, h5 {
   color: #2c3e50;
 }
 
-.box {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.box:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
 .ingredient-history {
   margin-top: 15px;
 }
 
-.ingredient-history h5 {
-  color: #e74c3c;
-}
-
-.react-json-view {
-  font-family: Consolas, monospace;
-  background: #000;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-  color: #fff;
+.jsoneditor-container {
+  width: 100%;
+  margin-bottom: 20px;
+  max-height: 400px;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .jsoneditor .jsoneditor-tree .jsoneditor-hover {
@@ -82,4 +64,44 @@ h4, h5 {
 .jsoneditor {
   background-color: #000 !important;
   color: #fff !important;
+}
+
+.warning-message {
+  background-color: red;
+  color: #333;
+  padding: 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  h4, h5 {
+    font-size: 0.875rem;
+    padding: 8px;
+  }
+
+  .jsoneditor-container {
+    height: 300px;
+  }
+
+  .warning-message {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .dish-history-page {
+    padding: 10px;
+  }
+
+  h4, h5 {
+    font-size: 0.75rem;
+    padding: 6px;
+  }
+
+  .jsoneditor-container {
+    height: 250px;
+  }
 }

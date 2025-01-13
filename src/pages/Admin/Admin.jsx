@@ -6,7 +6,7 @@ import AddDishForm from './AddDishForm';
 import AddIngredientForm from './AddIngForm';
 import ManageDishPage from './ManageDish';
 import ManageIngredientsPage from './ManageIng';
-import Blockchain from '../ViewBlockchain/block'
+import Blockchain from '../ViewBlockchain/block';
 
 const AdminDashboard = () => {
   const [dishes, setDishes] = useState([]);
@@ -17,9 +17,21 @@ const AdminDashboard = () => {
   const [showAddIngredientForm, setShowAddIngredientForm] = useState(false);
   const [showManageDishPage, setShowManageDishPage] = useState(false);
   const [showManageIngredientsPage, setShowManageIngredientsPage] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setIsSmallScreen(true);
+      } else {
+        setIsSmallScreen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
     axios.get('https://food-quality-2s5r.onrender.com/api/dishes')
       .then(response => {
         const reversedDishes = response.data.reverse();
@@ -35,6 +47,10 @@ const AdminDashboard = () => {
       .catch(error => console.error('Error fetching ingredients:', error));
 
     setAverageScores({ freshness: 85, quality: 90 });
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const sortData = (data, key) => {
@@ -71,6 +87,13 @@ const AdminDashboard = () => {
       <header>
         <h1>TraceMy Meal Admin Dashboard</h1>
       </header>
+
+      {isSmallScreen && (
+        <div className="small-screen-warning">
+          <p>This content is best viewed on a desktop. For an optimal experience, please switch to a larger screen or enable desktop view on the current device.</p>
+        </div>
+      )}
+
       <div className="dashboard-container">
         <div className="sidebar">
           <button onClick={() => setShowAddDishForm(true)}>Add Dish</button>
@@ -94,6 +117,7 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
+
       <main>
         {showAddDishForm && (
           <div className="modal">

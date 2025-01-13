@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import JSONEditor from "jsoneditor";
-import "jsoneditor/dist/jsoneditor.min.css"; 
+import "jsoneditor/dist/jsoneditor.min.css";
 import '../DishHistoryPage/DishHistoryPage.css'
 
 const DishHistoryPage = () => {
   const { dishId } = useParams();
   const [dishHistory, setDishHistory] = useState(null);
-  const jsonEditorRefs = useRef([]); 
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const jsonEditorRefs = useRef([]);
 
   useEffect(() => {
     const fetchDishHistory = async () => {
@@ -25,6 +26,19 @@ const DishHistoryPage = () => {
 
     fetchDishHistory();
   }, [dishId]);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 768); 
+    };
+
+    window.addEventListener("resize", checkScreenSize);
+    checkScreenSize(); 
+
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+    };
+  }, []);
 
   useEffect(() => {
     if (dishHistory) {
@@ -82,16 +96,22 @@ const DishHistoryPage = () => {
 
   return (
     <div className="dish-history-page">
+      {isSmallScreen && (
+        <div className="warning-message">
+          <p>This content is best viewed on a desktop. For an optimal experience, please switch to a larger screen or enable desktop view on the current device.</p>
+        </div>
+      )}
+
       {dishHistory ? (
         <div>
-          <h4 style={{ marginTop: "0" }}>Blockchain Transaction</h4>
-          <div ref={(el) => (jsonEditorRefs.current[0] = el)} style={{ height: "400px", marginBottom: "20px" }} className="jsoneditor-container"></div>
+          <h4>Blockchain Transaction</h4>
+          <div ref={(el) => (jsonEditorRefs.current[0] = el)} className="jsoneditor-container"></div>
 
           <h4>Ingredient Histories</h4>
           {dishHistory.ingredientHistories?.map((history, index) => (
-            <div key={index} style={{ marginTop: "20px" }}>
+            <div key={index} className="ingredient-history">
               <h5>Ingredient {index + 1}</h5>
-              <div ref={(el) => (jsonEditorRefs.current[index + 1] = el)} style={{ height: "400px", marginBottom: "20px" }} className="jsoneditor-container"></div>
+              <div ref={(el) => (jsonEditorRefs.current[index + 1] = el)} className="jsoneditor-container"></div>
             </div>
           ))}
         </div>
