@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./ManageDish.css"
+import './ManageDish.css';
 
 const ManageDishPage = () => {
   const [dishes, setDishes] = useState([]);
@@ -34,12 +34,6 @@ const ManageDishPage = () => {
     }
   };
 
-  const handleIngredientChange = (ingredientId) => {
-    setSelectedIngredients(prev => 
-      prev.includes(ingredientId) ? prev.filter(id => id !== ingredientId) : [...prev, ingredientId]
-    );
-  };
-
   const deleteDish = async (blockchainId) => {
     try {
       await axios.delete(`https://food-quality-2s5r.onrender.com/api/dishes/delete/${blockchainId}`);
@@ -53,6 +47,7 @@ const ManageDishPage = () => {
 
   const updateDish = async (e) => {
     e.preventDefault();
+
     const data = {
       name: updatedName,
       price: parseFloat(updatedPrice),
@@ -78,52 +73,68 @@ const ManageDishPage = () => {
     setShowUpdateForm(true);
   };
 
+  const handleIngredientChange = (ingredientId) => {
+    setSelectedIngredients(prevSelected => {
+      if (prevSelected.includes(ingredientId)) {
+        return prevSelected.filter(id => id !== ingredientId);
+      } else {
+        return [...prevSelected, ingredientId];
+      }
+    });
+  };
+
   return (
     <div className="manage-dish-page">
       <h2>Manage Dishes</h2>
       {showUpdateForm ? (
-        <div className="popup">
-          <div className="popup-content">
-            <button className="close-button" onClick={() => setShowUpdateForm(false)}>✖</button>
-            <form onSubmit={updateDish}>
-              <h3>Update Dish</h3>
-              <div>
-                <label>Name:</label>
-                <input type="text" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} required />
-              </div>
-              <div>
-                <label>Price:</label>
-                <input type="number" value={updatedPrice} onChange={(e) => setUpdatedPrice(e.target.value)} required />
-              </div>
-              <div>
-                <label>Ingredients:</label>
-                {ingredients.map(ingredient => (
-                  <div key={ingredient.blockchainId}>
-                    <input
-                      type="checkbox"
-                      id={ingredient.blockchainId}
-                      value={ingredient.blockchainId}
-                      checked={selectedIngredients.includes(ingredient.blockchainId)}
-                      onChange={() => handleIngredientChange(ingredient.blockchainId)}
-                    />
-                    <label htmlFor={ingredient.blockchainId}>{ingredient.name}</label>
-                  </div>
-                ))}
-              </div>
+        <div className="update-form-container">
+          <form onSubmit={updateDish}>
+            <h3>Update Dish</h3>
+            <div>
+              <label>Name:</label>
+              <input type="text" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} required />
+            </div>
+            <div>
+              <label>Price:</label>
+              <input type="number" value={updatedPrice} onChange={(e) => setUpdatedPrice(e.target.value)} required />
+            </div>
+            <div>
+              <label>Ingredients:</label>
+              {ingredients.map(ingredient => (
+                <div key={ingredient.blockchainId}>
+                  <input
+                    type="checkbox"
+                    id={ingredient.blockchainId}
+                    value={ingredient.blockchainId}
+                    checked={selectedIngredients.includes(ingredient.blockchainId)}
+                    onChange={() => handleIngredientChange(ingredient.blockchainId)}
+                  />
+                  <label htmlFor={ingredient.blockchainId}>{ingredient.name}</label>
+                </div>
+              ))}
+            </div>
+            <div>
               <button type="submit">Update Dish</button>
-              <button type="button" onClick={() => setShowUpdateForm(false)}>Cancel</button>
-            </form>
-          </div>
+              <button type="button" onClick={() => setShowUpdateForm(false)} className="close-button">Close</button>
+            </div>
+          </form>
         </div>
       ) : (
-        <div>
-          {dishes.map(dish => (
-            <div key={dish.blockchainId}>
-              <h3>{dish.name}</h3>
-              <button onClick={() => handleUpdateClick(dish)}>Update</button>
-              <button onClick={() => deleteDish(dish.blockchainId)}>Delete</button>
-            </div>
-          ))}
+        <div className="dishes-list">
+          <ul>
+            {dishes.map(dish => (
+              <li key={dish.blockchainId}>
+                <div>
+                  <h4>{dish.name}</h4>
+                  <p>Price: ${dish.price}</p>
+                </div>
+                <div>
+                  <button onClick={() => handleUpdateClick(dish)}>Update</button>
+                  <button onClick={() => deleteDish(dish.blockchainId)}>Delete</button>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>

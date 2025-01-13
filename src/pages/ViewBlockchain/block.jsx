@@ -16,13 +16,9 @@ const Blockchain = () => {
       setShowWarning(window.innerWidth < 1024);
     };
 
-    // Check screen size on initial load
     handleResize();
-
-    // Add event listener to handle window resizing
     window.addEventListener('resize', handleResize);
 
-    // Cleanup the event listener on component unmount
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -31,11 +27,12 @@ const Blockchain = () => {
       try {
         setLoading(true);
         const response = await axios.get('https://food-quality-2s5r.onrender.com/api/transaction/blockchain');
-        console.log('API Response:', response.data);
         setTransactions(response.data.blockchainData);
+        
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
       } catch (error) {
-        console.error('Error fetching transactions:', error);
-      } finally {
         setLoading(false);
       }
     };

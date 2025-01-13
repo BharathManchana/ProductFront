@@ -2,108 +2,100 @@
   padding: 20px;
 }
 
-h2 {
-  text-align: center;
-}
-
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup-content {
-  background: white;
+.update-form-container {
+  background-color: #fff;
   padding: 20px;
-  border-radius: 8px;
-  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 400px;
-  position: relative;
-  box-sizing: border-box;
+  margin: 20px auto;
 }
 
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
+.update-form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-form-container input {
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.update-form-container button {
+  padding: 10px;
+  background-color: tomato;
+  color: white;
   border: none;
-  font-size: 18px;
   cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
 }
 
-button {
-  margin: 10px 5px;
+.update-form-container .close-button {
+  background-color: tomato;
 }
 
-@media (max-width: 768px) {
+.dishes-list {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.dishes-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dishes-list li {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+.dishes-list button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: tomato;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+@media (max-width: 600px) {
   .manage-dish-page {
     padding: 10px;
   }
 
-  .popup-content {
-    width: 90%;
-    max-width: none;
-    padding: 15px;
-  }
-
-  button {
+  .update-form-container {
     width: 100%;
+    margin: 10px 0;
   }
 
-  form div {
-    margin-bottom: 15px;
+  .dishes-list ul {
+    padding: 5px;
   }
 
-  input[type="text"], input[type="number"] {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-  }
-
-  .popup-content h3 {
-    font-size: 1.2rem;
-  }
-
-  h3 {
-    font-size: 1.4rem;
-    text-align: center;
-  }
-
-  .close-button {
-    font-size: 24px;
-    top: 8px;
-    right: 8px;
-  }
-}
-
-@media (max-width: 480px) {
-  h3 {
-    font-size: 1.2rem;
-  }
-
-  button {
-    font-size: 14px;
-  }
-
-  .popup-content {
+  .dishes-list li {
     padding: 10px;
   }
 
-  input[type="text"], input[type="number"] {
-    padding: 6px;
-    font-size: 12px;
+  .dishes-list button {
+    padding: 5px;
   }
 
-  .close-button {
-    font-size: 26px;
-    top: 5px;
-    right: 5px;
+  .update-form-container form {
+    font-size: 14px;
+  }
+
+  .update-form-container input,
+  .update-form-container button,
+  .dishes-list li {
+    font-size: 14px;
+  }
+
+  .dishes-list button {
+    padding: 4px 8px;
   }
 }

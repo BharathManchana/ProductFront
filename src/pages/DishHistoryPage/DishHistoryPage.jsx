@@ -10,6 +10,7 @@ const DishHistoryPage = () => {
   const { dishId } = useParams();
   const [dishHistory, setDishHistory] = useState(null);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [useJsonEditor, setUseJsonEditor] = useState(true); 
   const jsonEditorRefs = useRef([]);
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const DishHistoryPage = () => {
   }, []);
 
   useEffect(() => {
-    if (dishHistory) {
+    if (dishHistory && useJsonEditor) {
       if (jsonEditorRefs.current[0] && !jsonEditorRefs.current[0].editor) {
         const editor = new JSONEditor(jsonEditorRefs.current[0], {
           mode: "tree", 
@@ -92,26 +93,39 @@ const DishHistoryPage = () => {
         }
       });
     }
-  }, [dishHistory]);
+  }, [dishHistory, useJsonEditor]); 
 
   return (
     <div className="dish-history-page">
       {isSmallScreen && (
         <div className="warning-message">
-          <p>This content is best viewed on a desktop. For an optimal experience, please switch to a larger screen or enable desktop view on the current device.</p>
+          <p>For a more detailed view and to better understand the data, please click the 'Show' button directly on the screen. This content is best viewed on a desktop, so for an optimal experience, we recommend switching to a larger screen or enabling desktop view on your current device.</p>
         </div>
       )}
+
+      <div className="display-options">
+        <button onClick={() => setUseJsonEditor(true)}>Show in JSON Editor</button>
+        <button onClick={() => setUseJsonEditor(false)}>Show Data Directly</button>
+      </div>
 
       {dishHistory ? (
         <div>
           <h4>Blockchain Transaction</h4>
-          <div ref={(el) => (jsonEditorRefs.current[0] = el)} className="jsoneditor-container"></div>
+          {useJsonEditor ? (
+            <div ref={(el) => (jsonEditorRefs.current[0] = el)} className="jsoneditor-container"></div>
+          ) : (
+            <pre>{JSON.stringify(dishHistory, null, 2)}</pre>
+          )}
 
           <h4>Ingredient Histories</h4>
           {dishHistory.ingredientHistories?.map((history, index) => (
             <div key={index} className="ingredient-history">
               <h5>Ingredient {index + 1}</h5>
-              <div ref={(el) => (jsonEditorRefs.current[index + 1] = el)} className="jsoneditor-container"></div>
+              {useJsonEditor ? (
+                <div ref={(el) => (jsonEditorRefs.current[index + 1] = el)} className="jsoneditor-container"></div>
+              ) : (
+                <pre>{JSON.stringify(history, null, 2)}</pre>
+              )}
             </div>
           ))}
         </div>
