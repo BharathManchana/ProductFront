@@ -85,7 +85,7 @@ h4, h5 {
 .display-options button {
   padding: 10px 15px;
   margin-right: 10px;
-  background-color: #007bff;
+  background-color: tomato;
   color: white;
   border: none;
   border-radius: 5px;
@@ -93,7 +93,42 @@ h4, h5 {
 }
 
 .display-options button:hover {
-  background-color: tomato;
+  background-color: #1e90ff;
+}
+
+.direct-display {
+  background-color: black !important;
+  padding: 15px !important;
+  border-radius: 10px !important;
+  font-size: 1rem !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  max-height: 600px !important;
+  overflow-y: auto !important;
+}
+
+.direct-display .json-key {
+  color: #ff4500 !important;
+}
+
+.direct-display .json-value {
+  color: #32cd32 !important;
+}
+
+.direct-display .json-string {
+  color: #1e90ff !important;
+}
+
+.direct-display .json-number {
+  color: #ffd700 !important;
+}
+
+.direct-display .json-boolean {
+  color: #ff6347 !important;
+}
+
+.direct-display .json-null {
+  color: #d3d3d3 !important;
 }
 
 @media (max-width: 768px) {

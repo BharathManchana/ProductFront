@@ -6,12 +6,24 @@ const AddDishForm = ({ setShowForm, refreshDishes }) => {
   const [price, setPrice] = useState('');
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [ingredients, setIngredients] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    axios.get('https://food-quality-2s5r.onrender.com/api/ingredients')
-      .then(response => setIngredients(response.data))
-      .catch(error => console.error('Error fetching ingredients:', error));
+    fetchIngredients();
   }, []);
+
+  const fetchIngredients = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get('https://food-quality-2s5r.onrender.com/api/ingredients');
+      setIngredients(response.data);
+    } catch (error) {
+      console.error('Error fetching ingredients:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleIngredientChange = (ingredientId) => {
     setSelectedIngredients(prev => 
@@ -21,6 +33,8 @@ const AddDishForm = ({ setShowForm, refreshDishes }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
     const data = {
       name,
       price: parseFloat(price),
@@ -28,6 +42,7 @@ const AddDishForm = ({ setShowForm, refreshDishes }) => {
     };
 
     try {
+      setIsLoading(true);
       await axios.post('https://food-quality-2s5r.onrender.com/api/dishes/add', data);
       alert('Dish added successfully!');
       setShowForm(false);
@@ -35,11 +50,19 @@ const AddDishForm = ({ setShowForm, refreshDishes }) => {
     } catch (error) {
       console.error('Error adding dish:', error);
       alert('Failed to add dish.');
+    } finally {
+      setIsSubmitting(false);
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="add-dish-form">
+      {isLoading && (
+        <div className="popup-message">
+          <p>Please wait...</p>
+        </div>
+      )}
       <h2>Add New Dish</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -64,7 +87,7 @@ const AddDishForm = ({ setShowForm, refreshDishes }) => {
             </div>
           ))}
         </div>
-        <button type="submit">Add Dish</button>
+        <button type="submit" disabled={isSubmitting}>Add Dish</button>
         <button type="button" onClick={() => setShowForm(false)}>Cancel</button>
       </form>
     </div>

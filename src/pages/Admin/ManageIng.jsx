@@ -8,6 +8,7 @@ const ManageIngredientsPage = () => {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [updatedName, setUpdatedName] = useState('');
   const [updatedExpiryDate, setUpdatedExpiryDate] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchIngredients();
@@ -15,21 +16,27 @@ const ManageIngredientsPage = () => {
 
   const fetchIngredients = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get('https://food-quality-2s5r.onrender.com/api/ingredients');
       setIngredients(response.data);
     } catch (error) {
       console.error('Error fetching ingredients:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const deleteIngredient = async (blockchainId) => {
     try {
+      setIsLoading(true);
       await axios.delete(`https://food-quality-2s5r.onrender.com/api/ingredients/delete/${blockchainId}`);
       alert('Ingredient deleted successfully!');
       fetchIngredients();
     } catch (error) {
       console.error('Error deleting ingredient:', error);
       alert('Failed to delete ingredient.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -41,6 +48,7 @@ const ManageIngredientsPage = () => {
     if (updatedExpiryDate) data.expiryDate = updatedExpiryDate;
 
     try {
+      setIsLoading(true);
       await axios.put(`https://food-quality-2s5r.onrender.com/api/ingredients/update/${selectedIngredient.blockchainId}`, data);
       alert('Ingredient updated successfully!');
       setShowUpdateForm(false);
@@ -48,6 +56,8 @@ const ManageIngredientsPage = () => {
     } catch (error) {
       console.error('Error updating ingredient:', error);
       alert('Failed to update ingredient.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -72,6 +82,7 @@ const ManageIngredientsPage = () => {
   return (
     <div className="manage-ingredients-page">
       <h2>Manage Ingredients</h2>
+      {isLoading && <div className="popup-message">Please wait...</div>}
       {showUpdateForm ? (
         <div className="update-form-container">
           <form onSubmit={updateIngredient}>
@@ -86,7 +97,7 @@ const ManageIngredientsPage = () => {
             </div>
             <div>
               <button type="submit">Update Ingredient</button>
-              <button type="button" onClick={() => setShowUpdateForm(false)} className="close-button">×</button>
+              <button type="button" onClick={() => setShowUpdateForm(false)} className="close-button">Close</button>
             </div>
           </form>
         </div>

@@ -10,6 +10,7 @@ const ManageDishPage = () => {
   const [updatedPrice, setUpdatedPrice] = useState('');
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [ingredients, setIngredients] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchDishes();
@@ -36,12 +37,15 @@ const ManageDishPage = () => {
 
   const deleteDish = async (blockchainId) => {
     try {
+      setIsLoading(true);
       await axios.delete(`https://food-quality-2s5r.onrender.com/api/dishes/delete/${blockchainId}`);
       alert('Dish deleted successfully!');
       fetchDishes();
     } catch (error) {
       console.error('Error deleting dish:', error);
       alert('Failed to delete dish.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -55,6 +59,7 @@ const ManageDishPage = () => {
     };
 
     try {
+      setIsLoading(true);
       await axios.put(`https://food-quality-2s5r.onrender.com/api/dishes/update/${selectedDish.blockchainId}`, data);
       alert('Dish updated successfully!');
       setShowUpdateForm(false);
@@ -62,6 +67,8 @@ const ManageDishPage = () => {
     } catch (error) {
       console.error('Error updating dish:', error);
       alert('Failed to update dish.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -86,6 +93,7 @@ const ManageDishPage = () => {
   return (
     <div className="manage-dish-page">
       <h2>Manage Dishes</h2>
+      {isLoading && <div className="popup-message">Please wait...</div>}
       {showUpdateForm ? (
         <div className="update-form-container">
           <form onSubmit={updateDish}>
@@ -98,7 +106,7 @@ const ManageDishPage = () => {
               <label>Price:</label>
               <input type="number" value={updatedPrice} onChange={(e) => setUpdatedPrice(e.target.value)} required />
             </div>
-            <div>
+            <div className="scrollable-ingredients">
               <label>Ingredients:</label>
               {ingredients.map(ingredient => (
                 <div key={ingredient.blockchainId}>

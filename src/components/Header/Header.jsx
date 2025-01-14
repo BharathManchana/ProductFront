@@ -12,12 +12,9 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header-contents">
-        <h2>Order your favourite food here</h2>
+        <h2>Meal with Confidence</h2>
         <p>
-          Choose from a diverse menu featuring a delectable array of dishes
-          crafted with the finest ingredients and culinary expertise. Our
-          mission is to satisfy your cravings and elevate your dining
-          experience, one delicious meal at a time.
+        At TraceMyMeal, we combine cutting-edge technology with culinary expertise to ensure that every meal you order is not only mouthwatering but also safe, authentic, and health-conscious.
         </p>
         <button onClick={handleViewMenuClick}>View Menu</button>
       </div>

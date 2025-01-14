@@ -4,13 +4,13 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import JSONEditor from "jsoneditor";
 import "jsoneditor/dist/jsoneditor.min.css";
-import '../DishHistoryPage/DishHistoryPage.css'
+import '../DishHistoryPage/DishHistoryPage.css';
 
 const DishHistoryPage = () => {
   const { dishId } = useParams();
   const [dishHistory, setDishHistory] = useState(null);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [useJsonEditor, setUseJsonEditor] = useState(true); 
+  const [useJsonEditor, setUseJsonEditor] = useState(false); 
   const jsonEditorRefs = useRef([]);
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const DishHistoryPage = () => {
     <div className="dish-history-page">
       {isSmallScreen && (
         <div className="warning-message">
-          <p>For a more detailed view and to better understand the data, please click the 'Show' button directly on the screen. This content is best viewed on a desktop, so for an optimal experience, we recommend switching to a larger screen or enabling desktop view on your current device.</p>
+          <p>For a more detailed view and to better understand the data, please click the 'Show Data Directly' button directly on the screen. This content is best viewed on a desktop, so for an optimal experience, we recommend switching to a larger screen or enabling desktop view on your current device.</p>
         </div>
       )}
 
@@ -114,7 +114,21 @@ const DishHistoryPage = () => {
           {useJsonEditor ? (
             <div ref={(el) => (jsonEditorRefs.current[0] = el)} className="jsoneditor-container"></div>
           ) : (
-            <pre>{JSON.stringify(dishHistory, null, 2)}</pre>
+            <pre className="direct-display">
+              {Object.entries(dishHistory).map(([key, value]) => (
+                <div key={key}>
+                  <span className="json-key">{key}</span>: 
+                  <span
+                    className={`json-value ${typeof value === 'string' ? 'json-string' : ''} 
+                                ${typeof value === 'number' ? 'json-number' : ''}
+                                ${typeof value === 'boolean' ? 'json-boolean' : ''}
+                                ${value === null ? 'json-null' : ''}`}
+                  >
+                    {typeof value === 'object' ? JSON.stringify(value, null, 2) : value}
+                  </span>
+                </div>
+              ))}
+            </pre>
           )}
 
           <h4>Ingredient Histories</h4>
@@ -124,7 +138,21 @@ const DishHistoryPage = () => {
               {useJsonEditor ? (
                 <div ref={(el) => (jsonEditorRefs.current[index + 1] = el)} className="jsoneditor-container"></div>
               ) : (
-                <pre>{JSON.stringify(history, null, 2)}</pre>
+                <pre className="direct-display">
+                  {Object.entries(history).map(([key, value]) => (
+                    <div key={key}>
+                      <span className="json-key">{key}</span>: 
+                      <span
+                        className={`json-value ${typeof value === 'string' ? 'json-string' : ''} 
+                                    ${typeof value === 'number' ? 'json-number' : ''}
+                                    ${typeof value === 'boolean' ? 'json-boolean' : ''}
+                                    ${value === null ? 'json-null' : ''}`}
+                      >
+                        {typeof value === 'object' ? JSON.stringify(value, null, 2) : value}
+                      </span>
+                    </div>
+                  ))}
+                </pre>
               )}
             </div>
           ))}

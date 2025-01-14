@@ -6,7 +6,7 @@ const About = () => {
         <div className="container">
             <h1>About TraceMyMeal</h1>
             <p>Ever felt worried about the ingredients used in the food you order? About the quality and safety of those ingredients?</p>
-            <p>TraceMyMeal is an innovative web-based prototype designed to revolutionize the food delivery industry by bringing full transparency to ingredient sourcing and quality. With the combination of blockchain technology and real-time AI monitoring, TraceMyMeal ensures that every meal you order is not only delicious but also authentic, safe, and health-conscious.</p>
+            <p>TraceMyMeal is an innovative web-based prototype designed to revolutionize the food delivery industry by bringing full transparency to ingredient sourcing and quality. By integrating blockchain technology, smart contracts, consensus mechanisms, and real-time AI monitoring, TraceMyMeal ensures every meal you order is authentic, safe, and health-conscious.</p>
             
             <section>
                 <h2>Key Features & Functionalities</h2>
@@ -14,57 +14,73 @@ const About = () => {
                 <div className="feature">
                     <h3>1. Blockchain Technology for Transparency</h3>
                     <ul>
-                        <li>TraceMyMeal simulates the integration of blockchain to provide complete transparency in the food supply chain.</li>
-                        <li>Every ingredient's journey is traceable—from farm to plate—so you can verify its origin, authenticity, and quality.</li>
-                        <li>The decentralized nature of blockchain ensures the information is immutable, giving you peace of mind that the details are trustworthy and cannot be tampered with.</li>
+                        <li>Simulates blockchain integration for complete transparency in the food supply chain.</li>
+                        <li>Enables traceability of every ingredient—from farm to plate—verifying its origin, authenticity, and quality.</li>
+                        <li>Decentralized data ensures immutability, providing trustworthy and tamper-proof information.</li>
                     </ul>
                 </div>
 
                 <div className="feature">
-                    <h3>2. Smart Contracts for Authenticity</h3>
+                    <h3>2. Smart Contracts for Authenticity and Consensus Mechanism</h3>
                     <ul>
-                        <li>Smart contracts are used to ensure that every ingredient listed on the platform is true and verified on the blockchain.</li>
-                        <li>Each ingredient’s details are confirmed by a smart contract before being added, ensuring that only authentic, verified data gets stored in the blockchain.</li>
-                        <li>This means that when you view an ingredient’s origin or quality score, you can be certain it is accurate and has passed strict validation before being recorded.</li>
+                        <li>Smart contracts automatically validate ingredient details, ensuring data accuracy and eliminating human error.</li>
+                        <li>Uses consensus mechanisms like Proof of Stake (PoS) or Proof of Authority (PoA) to verify data reliability.</li>
+                        <li>Multiple blockchain nodes validate data before it is recorded, ensuring transparency and trustworthiness.</li>
                     </ul>
                 </div>
 
                 <div className="feature">
                     <h3>3. Real-Time AI Monitoring</h3>
                     <ul>
-                        <li>AI-powered real-time monitoring tracks the freshness and quality of food during storage and transit, offering updates to consumers.</li>
-                        <li>A dynamic quality score reflects food safety, freshness, and overall quality, helping you make well-informed decisions before ordering.</li>
-                        <li>With this technology, we bring a new level of health-consciousness to food ordering by ensuring that you know exactly what you're eating at all stages.</li>
+                        <li>Monitors freshness and quality during storage and transit, providing real-time updates to consumers.</li>
+                        <li>Dynamic quality scores help customers make informed decisions before ordering.</li>
                     </ul>
                 </div>
 
                 <div className="feature">
                     <h3>4. User-Friendly Interface</h3>
                     <ul>
-                        <li>The platform’s simple, intuitive design allows you to explore detailed ingredient histories for each dish.</li>
-                        <li>The DishHistoryPage reveals the journey of every ingredient used in the dish, ensuring transparency in sourcing, quality, and freshness.</li>
+                        <li>Intuitive design lets users explore detailed ingredient histories for each dish.</li>
+                        <li>The DishHistoryPage ensures transparency in sourcing, quality, and freshness.</li>
+                    </ul>
+                </div>
+
+                <div className="feature">
+                    <h3>5. Ensuring Data-Product Match with Customer Feedback Score</h3>
+                    <ul>
+                        <li>Immutable ingredient data is stored using blockchain and verified by smart contracts.</li>
+                        <li>Customer Feedback Score ensures delivered dishes match the data provided, covering ingredient quality and freshness.</li>
+                        <li>Restaurants are held accountable and encouraged to maintain high feedback scores, promoting transparency and quality.</li>
                     </ul>
                 </div>
             </section>
 
             <section>
+                <h2>Hyperpure Concept Integration</h2>
+                <p>As food delivery giants like Zomato adopt the Hyperpure concept, TraceMyMeal complements and enhances this approach:</p>
+                <ul>
+                    <li><strong>Easier Ingredient Sourcing:</strong> Hyperpure ensures high-quality, fresh ingredients, simplifying TraceMyMeal's verification process.</li>
+                    <li><strong>Enhanced Restaurant Standards:</strong> Partnering with Hyperpure improves ingredient quality and transparency, building customer trust.</li>
+                </ul>
+            </section>
+
+            <section>
                 <h2>Advantages of Blockchain</h2>
                 <ul>
-                    <li><strong>Transparency:</strong> Blockchain allows you to trace every ingredient’s journey with complete visibility, ensuring you know exactly where your food comes from.</li>
-                    <li><strong>Trust:</strong> The decentralized nature of blockchain builds trust by ensuring the data is accurate, verifiable, and resistant to manipulation.</li>
-                    <li><strong>Authenticity:</strong> Blockchain guarantees the authenticity of ingredient details, and smart contracts ensure that only verified data is added to the blockchain.</li>
+                    <li><strong>Transparency:</strong> Full visibility of every ingredient's journey.</li>
+                    <li><strong>Trust:</strong> Decentralized, tamper-resistant data ensures accuracy and reliability.</li>
+                    <li><strong>Authenticity:</strong> Smart contracts guarantee only verified data is stored.</li>
                 </ul>
             </section>
 
             <section>
                 <h2>Prototype Status</h2>
-                <p>Please note that TraceMyMeal is a prototype project. While it simulates blockchain functionality and smart contracts, it does not operate on an actual blockchain. This demonstration highlights the potential of combining blockchain, smart contracts, and AI to improve food quality assurance in the food ordering industry.</p>
+                <p>TraceMyMeal is a prototype project. It simulates blockchain functionality and smart contracts but does not operate on an actual blockchain. This highlights the potential of combining blockchain, smart contracts, and AI for improved food quality assurance in the food ordering industry.</p>
             </section>
 
             <section>
                 <h2>Motivation</h2>
-                <p>The TraceMyMeal project was born from the desire to address a common concern: the quality and safety of ingredients in the food we order online. Inspired by this issue, I aimed to create a platform that combines blockchain for transparency, and AI for real-time monitoring, ensuring that customers can make informed, health-conscious choices. This prototype shows how technology can provide a new level of trust and accountability in the food industry, making every meal you order not just convenient but also transparent, authentic, and verified.</p>
-                <p>By integrating blockchain and real-time AI monitoring, TraceMyMeal sets a new standard for the online food ordering experience—ensuring that every dish is transparent, safe, high-quality, and authentic.</p>
+                <p>The TraceMyMeal project was born out of a desire to address concerns about ingredient quality and safety in online food orders. By leveraging blockchain for transparency, AI for real-time monitoring, and customer feedback, the platform empowers consumers to make informed, health-conscious choices. This prototype demonstrates how technology can revolutionize the food industry, ensuring every meal is transparent, safe, and authentic.</p>
             </section>
         </div>
     );
