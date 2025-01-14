@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import ReactDOM from "react-dom";
 import "./FoodItem.css";
 import { assets } from "../../assets/frontend_assets/assets";
 import { StoreContext } from "../../context/StoreContext";
+import RatingForm from "../Rating/Rating";
 
 const FoodItem = ({
   id,
@@ -11,6 +13,12 @@ const FoodItem = ({
   onClickQualityScore,
 }) => {
   const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+
+  const [showRatingForm, setShowRatingForm] = useState(false);
+
+  const toggleRatingForm = () => {
+    setShowRatingForm(!showRatingForm);
+  };
 
   return (
     <div className="food-item">
@@ -55,7 +63,24 @@ const FoodItem = ({
             <span className="unlock-text">(Unlock more info)</span>
           </span>
         </div>
+
+        <button onClick={toggleRatingForm} className="rate-dish-btn">
+          {showRatingForm ? "Close Rating Form" : "Rate This Dish"}
+        </button>
       </div>
+
+      {showRatingForm &&
+        ReactDOM.createPortal(
+          <div className="rating-popup">
+            <div className="rating-popup-content">
+              <button className="close-popup" onClick={toggleRatingForm}>
+                &times;
+              </button>
+              <RatingForm dishId={id} />
+            </div>
+          </div>,
+          document.body
+        )}
     </div>
   );
 };
