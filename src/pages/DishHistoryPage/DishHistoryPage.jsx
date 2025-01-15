@@ -131,15 +131,15 @@ const DishHistoryPage = () => {
             </pre>
           )}
 
-          <h4>Ingredient Histories</h4>
-          {dishHistory.ingredientHistories?.map((history, index) => (
+          <h4>Rawmaterials Histories</h4>
+          {dishHistory.rawmaterialHistories?.map((history, index) => (
             <div key={index} className="ingredient-history">
-              <h5>Ingredient {index + 1}</h5>
+              <h5>Raw Material {index + 1}</h5>
               {useJsonEditor ? (
                 <div ref={(el) => (jsonEditorRefs.current[index + 1] = el)} className="jsoneditor-container"></div>
               ) : (
                 <pre className="direct-display">
-                  {Object.entries(history).map(([key, value]) => (
+                  {Object.entries(history.rawmaterial).map(([key, value]) => (
                     <div key={key}>
                       <span className="json-key">{key}</span>: 
                       <span
