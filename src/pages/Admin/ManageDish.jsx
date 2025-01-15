@@ -92,12 +92,12 @@ const ManageDishPage = () => {
 
   return (
     <div className="manage-dish-page">
-      <h2>Manage Dishes</h2>
+      <h2>Manage Products</h2>
       {isLoading && <div className="popup-message">Please wait...</div>}
       {showUpdateForm ? (
         <div className="update-form-container">
           <form onSubmit={updateDish}>
-            <h3>Update Dish</h3>
+            <h3>Update Product</h3>
             <div>
               <label>Name:</label>
               <input type="text" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} required />
@@ -107,7 +107,7 @@ const ManageDishPage = () => {
               <input type="number" value={updatedPrice} onChange={(e) => setUpdatedPrice(e.target.value)} required />
             </div>
             <div className="scrollable-ingredients">
-              <label>Ingredients:</label>
+              <label>Material:</label>
               {ingredients.map(ingredient => (
                 <div key={ingredient.blockchainId}>
                   <input
@@ -122,7 +122,7 @@ const ManageDishPage = () => {
               ))}
             </div>
             <div>
-              <button type="submit">Update Dish</button>
+              <button type="submit">Update Product</button>
               <button type="button" onClick={() => setShowUpdateForm(false)} className="close-button">Close</button>
             </div>
           </form>

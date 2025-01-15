@@ -63,7 +63,7 @@ const AddDishForm = ({ setShowForm, refreshDishes }) => {
           <p>Please wait...</p>
         </div>
       )}
-      <h2>Add New Dish</h2>
+      <h2>Add New Product</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name:</label>
@@ -74,7 +74,7 @@ const AddDishForm = ({ setShowForm, refreshDishes }) => {
           <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
         </div>
         <div>
-          <label>Ingredients:</label>
+          <label>Materials:</label>
           {ingredients.map(ingredient => (
             <div key={ingredient.blockchainId}>
               <input
@@ -87,7 +87,7 @@ const AddDishForm = ({ setShowForm, refreshDishes }) => {
             </div>
           ))}
         </div>
-        <button type="submit" disabled={isSubmitting}>Add Dish</button>
+        <button type="submit" disabled={isSubmitting}>Add Product</button>
         <button type="button" onClick={() => setShowForm(false)}>Cancel</button>
       </form>
     </div>

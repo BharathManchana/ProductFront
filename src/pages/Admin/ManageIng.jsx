@@ -81,12 +81,12 @@ const ManageIngredientsPage = () => {
 
   return (
     <div className="manage-ingredients-page">
-      <h2>Manage Ingredients</h2>
+      <h2>Manage Materials</h2>
       {isLoading && <div className="popup-message">Please wait...</div>}
       {showUpdateForm ? (
         <div className="update-form-container">
           <form onSubmit={updateIngredient}>
-            <h3>Update Ingredient</h3>
+            <h3>Update Material</h3>
             <div>
               <label>Name:</label>
               <input type="text" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} />
@@ -96,7 +96,7 @@ const ManageIngredientsPage = () => {
               <input type="date" value={updatedExpiryDate} onChange={(e) => setUpdatedExpiryDate(e.target.value)} />
             </div>
             <div>
-              <button type="submit">Update Ingredient</button>
+              <button type="submit">Update Material</button>
               <button type="button" onClick={() => setShowUpdateForm(false)} className="close-button">Close</button>
             </div>
           </form>

@@ -65,7 +65,7 @@ const FoodItem = ({
         </div>
 
         <button onClick={toggleRatingForm} className="rate-dish-btn">
-          {showRatingForm ? "Close Rating Form" : "Rate This Dish"}
+          {showRatingForm ? "Close Rating Form" : "Rate This Product"}
         </button>
       </div>
 

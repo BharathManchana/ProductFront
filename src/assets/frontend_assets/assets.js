@@ -1,5 +1,5 @@
 import basket_icon from './basket_icon.png'
-import logo from './TraceMyMeal.png'
+import logo from './TraceMyProduct.png'
 import header_img from './header_img.png'
 import search_icon from './search_icon.png'
 import menu_icon  from './menu_icon.png'
@@ -87,36 +87,35 @@ export const assets = {
 
 export const menu_list = [
     {
-        menu_name: "Salad",
+        menu_name: "Food",
         menu_image: menu_1
     },
     {
-        menu_name: "Rolls",
+        menu_name: "Cosmetics",
         menu_image: menu_2
     },
     {
-        menu_name: "Deserts",
+        menu_name: "Electronics",
         menu_image: menu_3
     },
     {
-        menu_name: "Sandwich",
+        menu_name: "Pharmaceutical",
         menu_image: menu_4
     },
     {
-        menu_name: "Cake",
+        menu_name: "Precious Metals",
         menu_image: menu_5
     },
     {
-        menu_name: "Pure Veg",
+        menu_name: "Furniture",
         menu_image: menu_6
     },
     {
-        menu_name: "Pasta",
+        menu_name: "Food",
         menu_image: menu_7
     },
     {
-        menu_name: "Noodles",
-        menu_image: menu_8
+        menu_name: "Cosmetics",
+        menu_image: menu_2
     }]
-
 

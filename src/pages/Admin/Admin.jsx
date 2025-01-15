@@ -85,7 +85,7 @@ const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
       <header>
-        <h1>TraceMy Meal Admin Dashboard</h1>
+        <h1>TraceMyProduct Admin Dashboard</h1>
       </header>
 
       {isSmallScreen && (
@@ -96,19 +96,19 @@ const AdminDashboard = () => {
 
       <div className="dashboard-container">
         <div className="sidebar">
-          <button onClick={() => setShowAddDishForm(true)}>Add Dish</button>
-          <button onClick={() => setShowManageDishPage(true)}>Manage Dishes</button>
-          <button onClick={() => setShowAddIngredientForm(true)}>Add Ingredient</button>
-          <button onClick={() => setShowManageIngredientsPage(true)}>Manage Ingredients</button>
+          <button onClick={() => setShowAddDishForm(true)}>Add Product</button>
+          <button onClick={() => setShowManageDishPage(true)}>Manage Product</button>
+          <button onClick={() => setShowAddIngredientForm(true)}>Add Material</button>
+          <button onClick={() => setShowManageIngredientsPage(true)}>Manage Materials</button>
           <button onClick={() => navigate('/blockchain-history')}>Blockchain Transactions</button>
         </div>
         <div className="summary-widgets">
           <div className="widget">
-            <h3>Total Dishes</h3>
+            <h3>Total Products</h3>
             <p>{dishes.length}</p>
           </div>
           <div className="widget">
-            <h3>Total Ingredients</h3>
+            <h3>Total Materials</h3>
             <p>{ingredients.length}</p>
           </div>
           <div className="widget">
@@ -152,7 +152,7 @@ const AdminDashboard = () => {
           </div>
         )}
 
-        <h2>Dishes</h2>
+        <h2>Products</h2>
         <div className="table-wrapper">
           <table>
             <thead>
@@ -175,14 +175,14 @@ const AdminDashboard = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4">No dishes available</td>
+                  <td colSpan="4">No Products available</td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
 
-        <h2>Ingredients</h2>
+        <h2>Materials</h2>
         <div className="table-wrapper">
           <table>
             <thead>
@@ -211,7 +211,7 @@ const AdminDashboard = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="7">No ingredients available</td>
+                  <td colSpan="7">No Materials available</td>
                 </tr>
               )}
             </tbody>

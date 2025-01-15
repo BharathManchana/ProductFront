@@ -37,7 +37,7 @@ const AddIngredientForm = ({ setShowForm, refreshIngredients }) => {
   return (
     <div className="add-ingredient-form">
       {isSubmitting && <div className="popup-message">Please wait...</div>}
-      <h2>Add New Ingredient</h2>
+      <h2>Add New Materials</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name:</label>
@@ -84,7 +84,7 @@ const AddIngredientForm = ({ setShowForm, refreshIngredients }) => {
             required
           />
         </div>
-        <button type="submit" disabled={isSubmitting}>Add Ingredient</button>
+        <button type="submit" disabled={isSubmitting}>Add Material</button>
         <button type="button" onClick={() => setShowForm(false)}>Cancel</button>
       </form>
     </div>

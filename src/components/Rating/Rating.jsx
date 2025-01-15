@@ -51,16 +51,16 @@ const RatingForm = ({ dishId }) => {
 
   return (
     <div>
-      <h1>Rate the Dish</h1>
+      <h1>Rate the Product</h1>
       <p>
-        This form is to check whether the data shown in the dish history regarding the ingredients 
-        and the dish of the product match the product delivered to you. Please rate the following aspects 
-        based on your experience with the delivered dish.
+        This form is to check whether the data shown in the Product history regarding the Raw Materials
+        of the product match the product delivered to you. Please rate the following aspects 
+        based on your experience with the delivered product.
       </p>
       <br />
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="foodQuality">Food Quality:</label>
+          <label htmlFor="foodQuality">Product Quality:</label>
           <input
             type="number"
             id="foodQuality"
@@ -73,7 +73,7 @@ const RatingForm = ({ dishId }) => {
           />
         </div>
         <div>
-          <label htmlFor="taste">Taste:</label>
+          <label htmlFor="taste">Experience:</label>
           <input
             type="number"
             id="taste"
@@ -86,7 +86,7 @@ const RatingForm = ({ dishId }) => {
           />
         </div>
         <div>
-          <label htmlFor="ingredientQuality">Ingredient Quality:</label>
+          <label htmlFor="ingredientQuality">Material Quality:</label>
           <input
             type="number"
             id="ingredientQuality"
@@ -106,9 +106,9 @@ const RatingForm = ({ dishId }) => {
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       
       <h2>Average Ratings</h2>
-      <p>Food Quality: {averageRatings.averageFoodQuality}%</p>
-      <p>Taste: {averageRatings.averageTaste}%</p>
-      <p>Ingredient Quality: {averageRatings.correctPercentage}%</p>
+      <p>Product Quality: {averageRatings.averageFoodQuality}%</p>
+      <p>Experience: {averageRatings.averageTaste}%</p>
+      <p>Material Quality: {averageRatings.correctPercentage}%</p>
     </div>
   );
 };
